@@ -1,0 +1,18 @@
+{
+  "name": "be-view-more-text",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.tsx",
+  "dependencies": {
+    "be-theme": "1.x",
+    "be-helpers": "1.x"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "abed_q@hotmail.com",
+  "license": "ISC"
+}
