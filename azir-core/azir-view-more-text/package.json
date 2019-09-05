@@ -1,0 +1,45 @@
+{
+  "name": "azir-view-more-text",
+  "version": "1.0.0",
+  "description": "A super lightweight plugin to expand/collapse text in React-Native. Truncated text is ended with ... .",
+  "main": "index.tsx",
+  "dependencies": {
+    "azir-theme": "^1.0.0",
+    "azir-helpers": "^1.0.0"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abodehq/blue-eye.git"
+  },
+  "keywords": [
+    "react-native",
+    "react-component",
+    "react-native-component",
+    "react",
+    "react native",
+    "mobile",
+    "ios",
+    "android",
+    "ui",
+    "expo",
+    "View",
+    "View More",
+    "more text",
+    "view more text",
+    "react native view more text",
+    "expo view more text"
+  ],
+  "author": "Abed Allateef Qaisi abed_q@hotmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abodehq/blue-eye/issues"
+  },
+  "homepage": "https://abodehq.github.io/blue-eye-docs/"
+}
