@@ -4,11 +4,13 @@ import React from "react";
 import LC_COLORS from "./colors";
 import LC_SIZES from "./sizes";
 import LC_Settings from "./settings";
+import LC_Strings from "./strings";
 // default theme with COLORS & SIZES
 const AzirTheme = {
   SETTINGS: LC_Settings,
   COLORS: LC_COLORS,
-  SIZES: LC_SIZES
+  SIZES: LC_SIZES,
+  STRINGS: LC_Strings
 };
 
 export default AzirTheme;
@@ -27,7 +29,9 @@ export function withAzir(Component, styles) {
   return class extends React.Component {
     render() {
       const { props } = this;
-      return <AzirContext.Consumer>{theme => <Component {...props} theme={{ ...AzirTheme, ...theme }} styles={styles && styles({ ...AzirTheme, ...theme })} />}</AzirContext.Consumer>;
+      return (
+        <AzirContext.Consumer>{theme => <Component {...props} theme={{ ...AzirTheme, ...theme }} styles={styles && styles({ ...AzirTheme, ...theme })} />}</AzirContext.Consumer>
+      );
     }
   };
 }
@@ -41,8 +45,9 @@ export function withAzir(Component, styles) {
 
 export const AzirProvider: React.FC<Props> = props => {
   const { theme, children } = props;
-  const { COLORS: CUSTOM_COLORS, SIZES: CUSTOM_SIZES, customTheme } = theme;
+  const { STRINGS: CUSTOM_STRINGS, COLORS: CUSTOM_COLORS, SIZES: CUSTOM_SIZES, customTheme } = theme;
   const providerTheme = {
+    STRINGS: { ...AzirTheme.STRINGS, ...CUSTOM_STRINGS },
     COLORS: { ...AzirTheme.COLORS, ...CUSTOM_COLORS },
     SIZES: { ...AzirTheme.SIZES, ...CUSTOM_SIZES },
     ...customTheme

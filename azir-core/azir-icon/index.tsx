@@ -1,7 +1,7 @@
 import React from "react";
 import AzirTheme, { withAzir } from "azir-theme";
 import { Text, StyleSheet } from "react-native";
-import { SolidIcons, RegularIcons, BrandIcons, parseIconFromClassName } from "./FontAwesomeIcons";
+import { AzirIcons, SolidIcons, RegularIcons, BrandIcons, parseIconFromClassName } from "./FontAwesomeIcons";
 
 const AzirIcon: React.FC<Props> = props => {
   const { BeIcons, styles, shadow, pro, color, size, style, icon } = props;
@@ -9,7 +9,7 @@ const AzirIcon: React.FC<Props> = props => {
   const themeColor = styles[color];
   if (themeColor) _color = themeColor.backgroundColor;
   const [code, type] = (icon || "").split("|");
-  const IconType = type === "brand" ? BrandIcons : type === "regular" ? RegularIcons : type === "solid" ? SolidIcons : BeIcons;
+  const IconType = type === "azir" ? AzirIcons : type === "brand" ? BrandIcons : type === "regular" ? RegularIcons : type === "solid" ? SolidIcons : BeIcons;
   const font = { fontFamily: IconType._fontFamily || "" };
   if (pro) {
     font.fontFamily = font.fontFamily.replace("Free", "Pro");
@@ -60,4 +60,4 @@ const styles = theme =>
     }
   });
 export default withAzir(AzirIcon, styles);
-export { SolidIcons, RegularIcons, BrandIcons, parseIconFromClassName };
+export { AzirIcons, SolidIcons, RegularIcons, BrandIcons, parseIconFromClassName };

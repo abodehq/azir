@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import AzirTheme, { withAzir } from "azir-theme";
 import Icon from "azir-icon";
-import { SolidIcons } from "azir-icon";
 const spaceAround: Function = direction => {
   switch (direction) {
     case "row-reverse":
@@ -25,17 +24,18 @@ const renderContent: Function = (props, checked) => {
   let _iconDisabledColor = styles[iconDisabledColor];
   _iconDisabledColor = _iconDisabledColor ? _iconDisabledColor.backgroundColor : iconDisabledColor;
   let iconColor = disabled ? _iconDisabledColor : checked ? _iconActiveColor : _iconInActiveColor;
+
   let icon = iconActive
     ? checked
       ? iconActive
       : iconInActive
       ? iconInActive
       : type == "radio"
-      ? SolidIcons.dotCircle
-      : SolidIcons.check
+      ? AzirTheme.STRINGS.RADIO_DEFAULT_ICON
+      : AzirTheme.STRINGS.CHECKBOX_DEFAULT_ICON
     : type == "radio"
-    ? SolidIcons.dotCircle
-    : SolidIcons.check;
+    ? AzirTheme.STRINGS.RADIO_DEFAULT_ICON
+    : AzirTheme.STRINGS.CHECKBOX_DEFAULT_ICON;
 
   const iconStyles = [styles.iconContainer];
   iconStyles.push({

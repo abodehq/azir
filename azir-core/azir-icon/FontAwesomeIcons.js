@@ -5,7 +5,31 @@
  */
 import AzirTheme, { withAzir } from "azir-theme";
 import { Platform } from "react-native";
-
+const AzirIcons = {
+  _fontFamily: "azir-font",
+  spin1: "\uE830|azir",
+  spin2: "\uE831|azir",
+  spin3: "\uE832|azir",
+  spin4: "\uE834|azir",
+  spin5: "\uE838|azir",
+  spin6: "\uE839|azir",
+  checkBox: "\uE807|azir",
+  checkBox1: "\uE809|azir",
+  checkBox2: "\uE80C|azir",
+  checkBox3: "\uE80A|azir",
+  checkBoxSquar: "\uF14A|azir",
+  checkBoxCircle: "\uE806|azir",
+  checkBoxCircle1: "\uE808|azir",
+  radioButton: "\uF192|azir",
+  radioButton1: "\uF140|azir",
+  radioButton2: "\uE800|azir",
+  radioButtonFill: "\uF111|azir",
+  radioButtonOutline: "\uF1DB|azir",
+  checkBoxOutline: "\uF096|azir",
+  checkBoxOutline1: "\uE80B|azir",
+  switchOff: "\uF204|azir",
+  switchOn: "\uF205|azir"
+};
 const SolidIcons = {
   //_fontFamily: Platform.OS === "ios" ? "FontAwesome5FreeSolid" : "fa-solid-900",
   _fontFamily: "fa-solid-900",
@@ -1606,7 +1630,18 @@ Object.keys(BrandIcons).forEach(iconKey => {
     });
   }
 });
-
+Object.keys(AzirIcons).forEach(iconKey => {
+  //check camelCase
+  if (iconKey != iconKey.toLowerCase()) {
+    const hyphenedIconName = translateFromCamelCaseToHyphened(iconKey);
+    //intercept equivalent hyphened icon key so we can translate
+    Object.defineProperty(AzirIcons, hyphenedIconName, {
+      get: () => {
+        return AzirIcons[iconKey];
+      }
+    });
+  }
+});
 function parseIconFromClassName(iconClassName) {
   if (!iconClassName) return;
 
@@ -1626,7 +1661,5 @@ function parseIconFromClassName(iconClassName) {
 
   return Icons[iconClassName];
 }
-export const SetCustomIcons = (icons) => {
-
-}
-export { SolidIcons, RegularIcons, BrandIcons, parseIconFromClassName };
+export const SetCustomIcons = icons => {};
+export { AzirIcons, SolidIcons, RegularIcons, BrandIcons, parseIconFromClassName };
