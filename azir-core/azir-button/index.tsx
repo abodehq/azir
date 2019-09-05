@@ -8,7 +8,7 @@ const renderContent = props => {
   const _textColor = textColor == "unknown" && outline ? "primary" : textColor == "unknown" ? "white" : textColor;
   const colorStyle = styles[_textColor];
 
-  //outline && textColor!="white" && textColor="primary"
+  //outline && textColor!="white" && textColor="primary" abed
   const textStyles = [];
   textTransform && textStyles.push({ textTransform: textTransform });
   !colorStyle && textStyles.push({ color: _textColor });
