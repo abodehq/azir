@@ -1,0 +1,48 @@
+{
+  "name": "azir-icon",
+  "version": "1.0.0",
+  "description": "An advance button component that should render nicely on any platform. Supports a great level of customization.",
+  "main": "index.tsx",
+  "dependencies": {
+    "azir-theme": "^1.0.0"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abodehq/blue-eye.git"
+  },
+  "keywords": [
+    "react-native",
+    "react-component",
+    "react-native-component",
+    "react",
+    "react native",
+    "mobile",
+    "ios",
+    "android",
+    "ui",
+    "expo",
+    "icon",
+    "advance icon",
+    "native icon",
+    "blue eye icon",
+    "react native icon",
+    "expo icon",
+    "font",
+    "font awesome",
+    "content",
+    "icon button"
+  ],
+  "author": "Abed Allateef Qaisi abed_q@hotmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abodehq/blue-eye/issues"
+  },
+  "homepage": "https://abodehq.github.io/blue-eye-docs/"
+}

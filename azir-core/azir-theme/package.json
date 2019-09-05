@@ -1,0 +1,43 @@
+{
+  "name": "azir-theme",
+  "version": "1.0.0",
+  "description": "A powerfull tool to customize React native app theme, components,style,....",
+  "main": "index.tsx",
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abodehq/blue-eye.git"
+  },
+  "keywords": [
+    "react-native",
+    "react-component",
+    "react-native-component",
+    "react",
+    "react native",
+    "mobile",
+    "ios",
+    "android",
+    "ui",
+    "expo",
+    "blue eye",
+    "Theme",
+    "framework",
+    "advance theme",
+    "native theme",
+    "react native theme",
+    "expo theme"
+  ],
+  "author": "Abed Allateef Qaisi abed_q@hotmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abodehq/blue-eye/issues"
+  },
+  "homepage": "https://abodehq.github.io/blue-eye-docs/"
+}
