@@ -1,28 +1,32 @@
 import React from "react";
-import AzirTheme, { withAzir } from "azir-theme";
+import AzirTheme, { withAzir, colorsProps } from "azir-theme";
 import { Text, StyleSheet } from "react-native";
 import normalize from "./normalize";
+
+export { default as human } from "./collections/human";
+export { default as humanDense } from "./collections/humanDense";
+export { default as humanTall } from "./collections/humanTall";
+export { default as material } from "./collections/material";
+export { default as materialTall } from "./collections/materialTall";
+export { default as materialDense } from "./collections/materialDense";
+export { default as iOSUIKit } from "./collections/iOSUIKit";
+export { default as iOSUIKitDense } from "./collections/iOSUIKitDense";
+export { default as iOSUIKitTall } from "./collections/iOSUIKitTall";
+
+export { default as sanFranciscoWeights } from "./helpers/sanFranciscoWeights";
+export { default as robotoWeights } from "./helpers/robotoWeights";
+export { default as notoCJKWeights } from "./helpers/notoCJKWeights";
+export { default as notoTallWeights } from "./helpers/notoTallWeights";
+export { default as webWeights } from "./helpers/webWeights";
+export { default as systemWeights } from "./helpers/systemWeights";
+export { default as systemDenseWeights } from "./helpers/systemDenseWeights";
+export { default as systemTallWeights } from "./helpers/systemTallWeights";
+export { default as sanFranciscoSpacing } from "./helpers/sanFranciscoSpacing";
+// export { default as iOSColors } from "./helpers/iOSColors";
+// export { default as materialColors } from "./helpers/materialColors";
+
 const AzirText: React.FC<Props> = props => {
-  const {
-    style,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    p,
-    muted,
-    neutral,
-    size,
-    color,
-    bold,
-    italic,
-    center,
-    children,
-    styles,
-    theme,
-    ...rest
-  } = props;
+  const { style, h1, h2, h3, h4, h5, p, muted, neutral, size, color, bold, italic, center, children, styles, theme, ...rest } = props;
   let _color = color;
   const themeColor = styles[color];
 
@@ -39,12 +43,12 @@ const AzirText: React.FC<Props> = props => {
         p && { fontSize: normalize(16) },
         muted && { color: theme.COLORS.MUTED },
         neutral && { color: theme.COLORS.NEUTRAL },
-        size && { fontSize: size },
-        color && { color },
-        italic && { fontStyle: "italic" },
         bold && { fontWeight: "bold" },
-        center && { textAlign: "center" },
-        style && style
+        italic && { fontStyle: "italic" },
+        style && style,
+        size && { fontSize: size },
+        color && { color: _color },
+        center && { textAlign: "center" }
       ]}
       {...rest}
     >
@@ -83,7 +87,7 @@ AzirText.defaultProps = {
   center: false,
   p: false,
   size: 0,
-  color: null,
+  color: AzirTheme.COLORS.BLACK,
   muted: false,
   bold: false,
   italic: false,
@@ -93,23 +97,6 @@ AzirText.defaultProps = {
 };
 const styles = theme =>
   StyleSheet.create({
-    primary: {
-      backgroundColor: theme.COLORS.PRIMARY
-    },
-    theme: {
-      backgroundColor: theme.COLORS.THEME
-    },
-    info: {
-      backgroundColor: theme.COLORS.INFO
-    },
-    error: {
-      backgroundColor: theme.COLORS.ERROR
-    },
-    warning: {
-      backgroundColor: theme.COLORS.WARNING
-    },
-    success: {
-      backgroundColor: theme.COLORS.SUCCESS
-    }
+    ...colorsProps
   });
 export default withAzir(AzirText, styles);

@@ -1,25 +1,18 @@
 import React, { useState } from "react";
 import { ActivityIndicator, StyleSheet, TouchableOpacity, TouchableHighlight, Text, View } from "react-native";
-import AzirTheme, { withAzir } from "azir-theme";
+import AzirTheme, { withAzir, colorsProps, getColorByName } from "azir-theme";
 
 const renderContent = props => {
   const { outline, children, textColor, textTransform, textStyle, icon, loading, loadingSize, loadingColor, styles } = props;
   let content = children;
   const _textColor = textColor == "unknown" && outline ? "primary" : textColor == "unknown" ? "white" : textColor;
-  const colorStyle = styles[_textColor];
-
-  //outline && textColor!="white" && textColor="primary" abed
   const textStyles = [];
   textTransform && textStyles.push({ textTransform: textTransform });
-  !colorStyle && textStyles.push({ color: _textColor });
-  colorStyle && textStyles.push({ color: colorStyle.backgroundColor });
+  textStyles.push({ color: getColorByName(_textColor) });
   textStyle && textStyles.push(textStyle); //add user custom style
-
   const isString = children && typeof children === "string"; //apply text transform
   if (loading) {
-    const color = styles[loadingColor];
-
-    return <ActivityIndicator size={loadingSize} color={color ? color.backgroundColor : loadingColor} />;
+    return <ActivityIndicator size={loadingSize} color={getColorByName(loadingColor)} />;
   }
   if (icon) {
     const flexDirection = AzirTheme.SETTINGS.RTL ? "row-reverse" : "row";
@@ -60,38 +53,33 @@ const AzirButton: React.FC<Props> = props => {
     shadow,
     ...rest
   } = props;
-  const colorStyle = styles[color];
-  const containerStyles = [];
 
+  const containerStyles = [];
   containerStyles.push(styles.defaultButton);
-  !outline && color && containerStyles.push(colorStyle);
-  !outline && color && !colorStyle && containerStyles.push({ backgroundColor: color });
+  !outline && color && containerStyles.push({ backgroundColor: getColorByName(color) });
   radius && containerStyles.push({ borderRadius: radius });
   shadow && containerStyles.push(styles.shadow);
   if (borderWidth != 0) {
-    const borderColorStyle = styles[borderColor];
     containerStyles.push({
       borderWidth: borderWidth,
-      borderColor: borderColorStyle ? borderColorStyle.backgroundColor : borderColor
+      borderColor: getColorByName(borderColor)
     });
   }
   if (outline && borderWidth == 0) {
-    const borderColorStyle = styles[borderColor];
     containerStyles.push({
       borderWidth: 1,
-      borderColor: borderColorStyle ? borderColorStyle.backgroundColor : borderColor
+      borderColor: getColorByName(borderColor)
     });
   }
   containerStyle && containerStyles.push(containerStyle); //add user custom style
 
   if (type === "TouchableHighlight") {
     const [pressed, setPressed] = useState(false);
-    const _underlayColor = styles[underlayColor];
     const underlayStyles = [...containerStyles];
     underlayStyle && underlayStyles.push(underlayStyle);
     return (
       <TouchableHighlight
-        underlayColor={_underlayColor ? _underlayColor.backgroundColor : underlayColor}
+        underlayColor={getColorByName(underlayColor)}
         disabled={disabled}
         activeOpacity={opacity}
         style={pressed ? underlayStyles : containerStyles}
@@ -174,29 +162,10 @@ const styles = theme =>
       fontSize: theme.SIZES.FONT,
       color: theme.COLORS.WHITE
     },
-    primary: {
-      backgroundColor: theme.COLORS.PRIMARY
-    },
-    theme: {
-      backgroundColor: theme.COLORS.THEME
-    },
-    info: {
-      backgroundColor: theme.COLORS.INFO
-    },
-    error: {
-      backgroundColor: theme.COLORS.ERROR
-    },
-    warning: {
-      backgroundColor: theme.COLORS.WARNING
-    },
-    success: {
-      backgroundColor: theme.COLORS.SUCCESS
-    },
-    transparent: {
-      backgroundColor: theme.COLORS.TRANSPARENT
-    },
+    ...colorsProps,
     androidShadow: {
       elevation: theme.SIZES.ANDROID_ELEVATION
     }
   });
+
 export default withAzir(AzirButton, styles);

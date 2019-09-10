@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
-import AzirTheme, { withAzir } from "azir-theme";
+import AzirTheme, { withAzir, colorsProps } from "azir-theme";
 import Icon from "azir-icon";
 const spaceAround: Function = direction => {
   switch (direction) {
@@ -130,7 +130,7 @@ type Props = {
   inGroup: boolean; //incase this component child of the radio group component , this step to allow radio to call setstate in case alone called
 };
 AzirRadio.defaultProps = {
-  size: AzirTheme.SIZES.ICON_SIZE,
+  size: AzirTheme.SIZES.RADIO_SIZE,
   disabled: false,
   flexDirection: "row",
   checked: false,
@@ -172,26 +172,6 @@ const styles = theme =>
       //color: theme.COLORS.MUTED,
       opacity: theme.SIZES.OPACITY
     },
-    primary: {
-      backgroundColor: theme.COLORS.PRIMARY
-    },
-    theme: {
-      backgroundColor: theme.COLORS.THEME
-    },
-    info: {
-      backgroundColor: theme.COLORS.INFO
-    },
-    error: {
-      backgroundColor: theme.COLORS.ERROR
-    },
-    warning: {
-      backgroundColor: theme.COLORS.WARNING
-    },
-    success: {
-      backgroundColor: theme.COLORS.SUCCESS
-    },
-    transparent: {
-      backgroundColor: theme.COLORS.TRANSPARENT
-    }
+    ...colorsProps
   });
 export default React.memo(withAzir(AzirRadio, styles));

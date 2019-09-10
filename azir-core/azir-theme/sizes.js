@@ -20,6 +20,10 @@ const SIZES = {
   BUTTON_HEIGHT: 16 * 2.75,
   BUTTON_SHADOW_RADIUS: 10,
 
+  //radio, checkbox
+  RADIO_SIZE: 16 * 2,
+  //switch Size
+  SWITCH_SIZE: 16 * 4,
   // View More Text
   NUMBER_OF_LINES: 3,
 
@@ -43,6 +47,7 @@ const SIZES = {
   CARD_ROUNDED: 16 * 0.5,
 
   // Input styles
+  INPUT_CONTAINER_VERTICAL: 16 / 2,
   INPUT_BORDER_RADIUS: 16 * 0.5,
   INPUT_BORDER_WIDTH: 16 * 0.05,
   INPUT_HEIGHT: 16 * 2.75,

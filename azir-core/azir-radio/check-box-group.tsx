@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-
 import { StyleSheet, View } from "react-native";
-
 import { withAzir } from "azir-theme";
 
 const LcCheckboxGroup: React.FC<Props> = props => {

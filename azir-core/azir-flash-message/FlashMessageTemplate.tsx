@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, Platform } from "react-native";
 import FlashMessageWrapper, { styleWithInset } from "./FlashMessageWrapper";
-import { withAzir } from "azir-theme";
+import { withAzir, colorsProps } from "azir-theme";
 /**
  * MessageComponent `minHeight` property used mainly in vertical transitions
  */
@@ -127,26 +127,6 @@ const styles = theme =>
       marginRight: -6,
       marginLeft: 9
     },
-    primary: {
-      backgroundColor: theme.COLORS.PRIMARY
-    },
-    theme: {
-      backgroundColor: theme.COLORS.THEME
-    },
-    info: {
-      backgroundColor: theme.COLORS.INFO
-    },
-    error: {
-      backgroundColor: theme.COLORS.ERROR
-    },
-    warning: {
-      backgroundColor: theme.COLORS.WARNING
-    },
-    success: {
-      backgroundColor: theme.COLORS.SUCCESS
-    },
-    transparent: {
-      backgroundColor: theme.COLORS.TRANSPARENT
-    }
+    ...colorsProps
   });
 export default withAzir(FlashMessageTemplate, styles);

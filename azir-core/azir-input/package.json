@@ -1,9 +1,12 @@
 {
-  "name": "azir-theme",
+  "name": "azir-input",
   "version": "1.0.0",
-  "description": "A powerfull tool to customize React native app theme, components,style,....",
+  "description": "An advance button component that should render nicely on any platform. Supports a great level of customization.",
   "main": "index.tsx",
-  "dependencies": {},
+  "dependencies": {
+    "azir-icon": "^1.0.0",
+    "azir-theme": "^1.0.0"
+  },
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
@@ -26,13 +29,12 @@
     "android",
     "ui",
     "expo",
-    "blue eye",
-    "Theme",
-    "framework",
-    "advance theme",
-    "native theme",
-    "react native theme",
-    "expo theme"
+    "input",
+    "advance input",
+    "native input",
+    "blue eye input",
+    "react native input",
+    "expo input"
   ],
   "author": "Abed Allateef Qaisi abed_q@hotmail.com",
   "license": "MIT",

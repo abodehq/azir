@@ -3,8 +3,8 @@
  *   Font Awesome Icon Database mapped to font items.
  *
  */
-import AzirTheme, { withAzir } from "azir-theme";
-import { Platform } from "react-native";
+
+//import { Platform } from "react-native";
 const AzirIcons = {
   _fontFamily: "azir-font",
   spin1: "\uE830|azir",
@@ -28,7 +28,11 @@ const AzirIcons = {
   checkBoxOutline: "\uF096|azir",
   checkBoxOutline1: "\uE80B|azir",
   switchOff: "\uF204|azir",
-  switchOn: "\uF205|azir"
+  switchOn: "\uF205|azir",
+  switchBoxOff: "\uE801|azir",
+  switchBoxOn: "\uE804|azir",
+  switchOff1: "\uE803|azir",
+  switchOn1: "\uE802|azir"
 };
 const SolidIcons = {
   //_fontFamily: Platform.OS === "ios" ? "FontAwesome5FreeSolid" : "fa-solid-900",

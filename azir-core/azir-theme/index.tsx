@@ -63,3 +63,31 @@ type Props = {
 };
 //default props 4
 AzirProvider.defaultProps = { children: null, theme: {} };
+
+export const colorsProps = {
+  primary: {
+    backgroundColor: LC_COLORS.PRIMARY
+  },
+  theme: {
+    backgroundColor: LC_COLORS.THEME
+  },
+  info: {
+    backgroundColor: LC_COLORS.INFO
+  },
+  error: {
+    backgroundColor: LC_COLORS.ERROR
+  },
+  warning: {
+    backgroundColor: LC_COLORS.WARNING
+  },
+  success: {
+    backgroundColor: LC_COLORS.SUCCESS
+  },
+  transparent: {
+    backgroundColor: LC_COLORS.TRANSPARENT
+  }
+};
+
+export const getColorByName = color => {
+  return colorsProps[color] ? colorsProps[color].backgroundColor : color;
+};

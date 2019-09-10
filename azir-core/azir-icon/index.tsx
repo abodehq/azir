@@ -1,5 +1,5 @@
 import React from "react";
-import AzirTheme, { withAzir } from "azir-theme";
+import AzirTheme, { withAzir, colorsProps } from "azir-theme";
 import { Text, StyleSheet } from "react-native";
 import { AzirIcons, SolidIcons, RegularIcons, BrandIcons, parseIconFromClassName } from "./FontAwesomeIcons";
 
@@ -40,24 +40,7 @@ const styles = theme =>
       textShadowOffset: theme.SIZES.ICON_SHADOW_OFFSET,
       textShadowRadius: theme.SIZES.ICON_SHADOW_RADIUS
     },
-    primary: {
-      backgroundColor: theme.COLORS.PRIMARY
-    },
-    theme: {
-      backgroundColor: theme.COLORS.THEME
-    },
-    info: {
-      backgroundColor: theme.COLORS.INFO
-    },
-    error: {
-      backgroundColor: theme.COLORS.ERROR
-    },
-    warning: {
-      backgroundColor: theme.COLORS.WARNING
-    },
-    success: {
-      backgroundColor: theme.COLORS.SUCCESS
-    }
+    ...colorsProps
   });
 export default withAzir(AzirIcon, styles);
 export { AzirIcons, SolidIcons, RegularIcons, BrandIcons, parseIconFromClassName };
