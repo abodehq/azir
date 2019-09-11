@@ -1,5 +1,5 @@
 const Settings = {
-  RTL: false
+  RTL: true
 };
 
 export default Settings;
