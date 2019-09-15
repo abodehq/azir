@@ -151,13 +151,6 @@ const styles = theme =>
       alignItems: "center",
       justifyContent: "center"
     },
-    shadow: {
-      shadowColor: theme.COLORS.BLOCK,
-      shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: theme.SIZES.OPACITY,
-      shadowRadius: theme.SIZES.BUTTON_SHADOW_RADIUS,
-      elevation: theme.SIZES.ANDROID_ELEVATION
-    },
     customText: {
       fontSize: theme.SIZES.FONT,
       color: theme.COLORS.WHITE

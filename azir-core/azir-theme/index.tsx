@@ -85,9 +85,26 @@ export const colorsProps = {
   },
   transparent: {
     backgroundColor: LC_COLORS.TRANSPARENT
-  }
+  },
+  shadow: {
+    shadowColor: LC_COLORS.BLOCK,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: LC_SIZES.OPACITY,
+    shadowRadius: LC_SIZES.BUTTON_SHADOW_RADIUS,
+    elevation: LC_SIZES.ANDROID_ELEVATION
+  },
 };
 
 export const getColorByName = color => {
   return colorsProps[color] ? colorsProps[color].backgroundColor : color;
+};
+
+const Sizes = {
+  small: 50,
+  medium: 75,
+  large: 100,
+  xlarge: 150
+};
+export const getSize = size => {
+  return Sizes[size] ? Sizes[size] : typeof size === "number" ? size : Sizes["small"];
 };

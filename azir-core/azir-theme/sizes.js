@@ -27,6 +27,11 @@ const SIZES = {
   // View More Text
   NUMBER_OF_LINES: 3,
 
+  //HR
+  HR_WIDTH: 1,
+  HR_PADDING: 16,
+  HR_TEXT_PADDING: 16,
+
   // Block styles
   BLOCK_SHADOW_OPACITY: 0.15,
   BLOCK_SHADOW_RADIUS: 8,

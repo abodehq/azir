@@ -1,0 +1,45 @@
+{
+  "name": "azir-hr",
+  "version": "1.0.0",
+  "description": "An advance HR component that should render nicely on any platform. Supports a great level of customization.",
+  "main": "index.tsx",
+  "dependencies": {
+    "azir-theme": "^1.0.0"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abodehq/azir.git"
+  },
+  "keywords": [
+    "react-native",
+    "react-component",
+    "react-native-component",
+    "react",
+    "react native",
+    "mobile",
+    "ios",
+    "android",
+    "ui",
+    "expo",
+    "hr",
+    "advance hr",
+    "native hr",
+    "blue eye hr",
+    "react native hr",
+    "expo hr",
+    "divider"
+  ],
+  "author": "Abed Allateef Qaisi abed_q@hotmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abodehq/azir/issues"
+  },
+  "homepage": "https://azir.io/"
+}
