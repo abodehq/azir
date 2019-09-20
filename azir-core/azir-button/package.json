@@ -1,11 +1,11 @@
 {
   "name": "azir-button",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "An advance button component that should render nicely on any platform. Supports a great level of customization.",
   "main": "index.tsx",
   "dependencies": {
-    "azir-icon": "^1.0.0",
-    "azir-theme": "^1.0.0"
+    "azir-icon": "^1.x.x",
+    "azir-theme": "^1.x.x"
   },
   "peerDependencies": {
     "react": "*",

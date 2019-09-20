@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, Platform } from "react-native";
 import FlashMessageWrapper, { styleWithInset } from "./FlashMessageWrapper";
-import { withAzir, colorsProps } from "azir-theme";
+import { withAzir, colorsProps, getColorByName } from "azir-theme";
 /**
  * MessageComponent `minHeight` property used mainly in vertical transitions
  */
@@ -18,6 +18,7 @@ const ColorTheme = {
   danger: "#d9534f"
 };
 const FlashMessageTemplate: React.FC<any> = ({
+  theme,
   message,
   style,
   styles,
@@ -54,9 +55,8 @@ const FlashMessageTemplate: React.FC<any> = ({
               hasIcon && styles.defaultFlashWithIcon,
               !!message.backgroundColor
                 ? { backgroundColor: message.backgroundColor }
-                : !!message.type &&
-                  !!styles[message.type] && {
-                    backgroundColor: styles[message.type].backgroundColor
+                : !!message.type && {
+                    backgroundColor: getColorByName(message.type, theme.COLORS)
                   },
               style
             ],

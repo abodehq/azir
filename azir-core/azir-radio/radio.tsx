@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
-import AzirTheme, { withAzir, colorsProps } from "azir-theme";
+import AzirTheme, { withAzir, colorsProps,getColorByName } from "azir-theme";
 import Icon from "azir-icon";
 const spaceAround: Function = direction => {
   switch (direction) {
@@ -15,27 +15,20 @@ const spaceAround: Function = direction => {
   }
 };
 const renderContent: Function = (props, checked) => {
-  const { size, styles, iconStyle, iconActive, iconInActive, iconActiveColor, iconInActiveColor, iconDisabledColor, disabled, hideInActiveIcon, hideIconBorder, type } = props;
-
-  let _iconActiveColor = styles[iconActiveColor];
-  _iconActiveColor = _iconActiveColor ? _iconActiveColor.backgroundColor : iconActiveColor;
-  let _iconInActiveColor = styles[iconInActiveColor];
-  _iconInActiveColor = _iconInActiveColor ? _iconInActiveColor.backgroundColor : iconInActiveColor;
-  let _iconDisabledColor = styles[iconDisabledColor];
-  _iconDisabledColor = _iconDisabledColor ? _iconDisabledColor.backgroundColor : iconDisabledColor;
-  let iconColor = disabled ? _iconDisabledColor : checked ? _iconActiveColor : _iconInActiveColor;
-
+  const {theme, size :_size, styles, iconStyle, iconActive, iconInActive, iconActiveColor, iconInActiveColor, iconDisabledColor, disabled, hideInActiveIcon, hideIconBorder, type } = props;
+  const size = _size? _size :theme.SIZES.RADIO_SIZE;
+  let iconColor = disabled ? getColorByName(iconDisabledColor,theme.COLORS) : checked ? getColorByName(iconActiveColor,theme.COLORS) : getColorByName(iconInActiveColor,theme.COLORS);
   let icon = iconActive
     ? checked
       ? iconActive
       : iconInActive
       ? iconInActive
       : type == "radio"
-      ? AzirTheme.STRINGS.RADIO_DEFAULT_ICON
-      : AzirTheme.STRINGS.CHECKBOX_DEFAULT_ICON
+      ? theme.STRINGS.RADIO_DEFAULT_ICON
+      : theme.STRINGS.CHECKBOX_DEFAULT_ICON
     : type == "radio"
-    ? AzirTheme.STRINGS.RADIO_DEFAULT_ICON
-    : AzirTheme.STRINGS.CHECKBOX_DEFAULT_ICON;
+    ? theme.STRINGS.RADIO_DEFAULT_ICON
+    : theme.STRINGS.CHECKBOX_DEFAULT_ICON;
 
   const iconStyles = [styles.iconContainer];
   iconStyles.push({
@@ -48,7 +41,7 @@ const renderContent: Function = (props, checked) => {
   hideIconBorder &&
     iconStyles.push({
       borderWidth: 0,
-      borderColor: AzirTheme.COLORS.TRANSPARENT
+      borderColor: theme.COLORS.TRANSPARENT
     });
   iconStyle && iconStyles.push(iconStyle);
   // if (checked && iconActive) {
@@ -60,19 +53,11 @@ const renderContent: Function = (props, checked) => {
   return <View style={iconStyles}>{!hideInActiveIcon || checked ? <Icon icon={icon} color={iconColor} size={size - size * 0.3} /> : null}</View>;
 };
 const renderLabel: Function = (props, checked) => {
-  const { textActiveColor, textInActiveColor, textDisabledColor, children, disabled, flexDirection, textStyle, styles } = props;
-  let _textActiveColor = styles[textActiveColor];
-  _textActiveColor = _textActiveColor ? _textActiveColor.backgroundColor : textActiveColor;
-  let _textInActiveColor = styles[textInActiveColor];
-  _textInActiveColor = _textInActiveColor ? _textInActiveColor.backgroundColor : textInActiveColor;
-  let _textDisabledColor = styles[textDisabledColor];
-  _textDisabledColor = _textDisabledColor ? _textDisabledColor.backgroundColor : textDisabledColor;
-
+  const {theme, textActiveColor, textInActiveColor, textDisabledColor, children, disabled, flexDirection, textStyle, styles } = props;
   const radioContent = children;
   const labelStyles = [styles.textStyles, flexDirection && spaceAround(flexDirection), textStyle];
-  checked ? labelStyles.push({ color: _textActiveColor }) : labelStyles.push({ color: _textInActiveColor });
-
-  disabled && labelStyles.push(styles.disabledLabel, { color: _textDisabledColor });
+  checked ? labelStyles.push({ color: getColorByName(textActiveColor,theme.COLORS)  }) : labelStyles.push({ color: getColorByName(textInActiveColor,theme.COLORS) });
+  disabled && labelStyles.push(styles.disabledLabel, { color: getColorByName(textDisabledColor,theme.COLORS) });
   const isString = children && typeof children === "string";
 
   if (radioContent) {
@@ -130,16 +115,16 @@ type Props = {
   inGroup: boolean; //incase this component child of the radio group component , this step to allow radio to call setstate in case alone called
 };
 AzirRadio.defaultProps = {
-  size: AzirTheme.SIZES.RADIO_SIZE,
+  size: null,
   disabled: false,
-  flexDirection: "row",
+  flexDirection: null,
   checked: false,
   iconActiveColor: "theme",
-  iconInActiveColor: AzirTheme.COLORS.BLACK,
+  iconInActiveColor: "black",
   textActiveColor: "theme",
-  textInActiveColor: AzirTheme.COLORS.BLACK,
-  iconDisabledColor: AzirTheme.COLORS.MUTED,
-  textDisabledColor: AzirTheme.COLORS.MUTED,
+  textInActiveColor: "black",
+  iconDisabledColor: "muted",
+  textDisabledColor: "muted",
   hideLable: false,
   hideInActiveIcon: true,
   hideIconBorder: false,
@@ -149,7 +134,7 @@ AzirRadio.defaultProps = {
 const styles = theme =>
   StyleSheet.create({
     container: {
-      flexDirection: "row",
+      flexDirection:theme.SETTINGS.RTL ? "row-reverse":  "row",
       alignItems: "center",
       justifyContent: "flex-start"
     },

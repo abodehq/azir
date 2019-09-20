@@ -3,16 +3,18 @@ import { ActivityIndicator, StyleSheet, TouchableOpacity, TouchableHighlight, Te
 import AzirTheme, { withAzir, colorsProps, getColorByName } from "azir-theme";
 
 const renderContent = props => {
-  const { outline, children, textColor, textTransform, textStyle, icon, loading, loadingSize, loadingColor, styles } = props;
+
+  const {theme, outline, children, textColor, textTransform, textStyle, icon, loading, loadingSize, loadingColor, styles } = props;
   let content = children;
   const _textColor = textColor == "unknown" && outline ? "primary" : textColor == "unknown" ? "white" : textColor;
   const textStyles = [];
+  textStyles.push(styles.text)
   textTransform && textStyles.push({ textTransform: textTransform });
-  textStyles.push({ color: getColorByName(_textColor) });
+  textStyles.push({ color: getColorByName(_textColor,theme.COLORS) });
   textStyle && textStyles.push(textStyle); //add user custom style
   const isString = children && typeof children === "string"; //apply text transform
   if (loading) {
-    return <ActivityIndicator size={loadingSize} color={getColorByName(loadingColor)} />;
+    return <ActivityIndicator size={loadingSize} color={getColorByName(loadingColor,theme.COLORS)} />;
   }
   if (icon) {
     const flexDirection = AzirTheme.SETTINGS.RTL ? "row-reverse" : "row";
@@ -36,6 +38,7 @@ const renderContent = props => {
 
 const AzirButton: React.FC<Props> = props => {
   const {
+    theme,
     type,
     underlayColor,
     underlayStyle,
@@ -45,32 +48,39 @@ const AzirButton: React.FC<Props> = props => {
     styles,
     color,
     outline,
-    borderColor,
-    borderWidth,
+    borderColor : _borderColor,
+    borderWidth : _borderWidth,
+    opacity: _opacity,
     disabled,
     radius,
-    opacity,
+  
     shadow,
     ...rest
   } = props;
+  //Set Default Values based on selected theme
+  const borderColor = _borderColor ? _borderColor : theme.COLORS.GREY;
+  const borderWidth = _borderWidth ? _borderWidth : theme.SIZES.BORDER_WIDTH;
+  const opacity = _opacity ? _opacity : theme.SIZES.OPACITY;
+  //end
 
   const containerStyles = [];
   containerStyles.push(styles.defaultButton);
-  !outline && color && containerStyles.push({ backgroundColor: getColorByName(color) });
+  !outline && color && containerStyles.push({ backgroundColor: getColorByName(color,theme.COLORS) });
   radius && containerStyles.push({ borderRadius: radius });
   shadow && containerStyles.push(styles.shadow);
   if (borderWidth != 0) {
     containerStyles.push({
       borderWidth: borderWidth,
-      borderColor: getColorByName(borderColor)
+      borderColor: getColorByName(borderColor,theme.COLORS)
     });
   }
-  if (outline && borderWidth == 0) {
+  if (outline && borderWidth == 0 ) {
     containerStyles.push({
       borderWidth: 1,
-      borderColor: getColorByName(borderColor)
+      borderColor: getColorByName(borderColor,theme.COLORS)
     });
   }
+ 
   containerStyle && containerStyles.push(containerStyle); //add user custom style
 
   if (type === "TouchableHighlight") {
@@ -79,7 +89,7 @@ const AzirButton: React.FC<Props> = props => {
     underlayStyle && underlayStyles.push(underlayStyle);
     return (
       <TouchableHighlight
-        underlayColor={getColorByName(underlayColor)}
+        underlayColor={getColorByName(underlayColor,theme.COLORS)}
         disabled={disabled}
         activeOpacity={opacity}
         style={pressed ? underlayStyles : containerStyles}
@@ -127,16 +137,16 @@ type Props = {
 AzirButton.defaultProps = {
   color: "theme",
   textColor: "unknown", // this is just to set the default based on the outline prop
-  borderColor: "theme",
+  borderColor: null,
   loadingColor: "theme",
-  radius: AzirTheme.SIZES.BORDER_RADIUS,
+  radius: null,
   disabled: false,
   shadow: false,
-  borderWidth: AzirTheme.SIZES.BORDER_WIDTH,
+  borderWidth: null,
   loadingSize: "small",
   loading: false,
   outline: false,
-  opacity: AzirTheme.SIZES.OPACITY,
+  opacity: null,
   type: "TouchableOpacity",
   underlayColor: "theme"
 };
@@ -144,16 +154,15 @@ AzirButton.defaultProps = {
 const styles = theme =>
   StyleSheet.create({
     defaultButton: {
-      borderRadius: 3,
+      borderRadius: theme.SIZES.BORDER_RADIUS,
       padding: 15,
-      //width: theme.SIZES.BUTTON_WIDTH,
-      //height: theme.SIZES.BUTTON_HEIGHT,
+      width: theme.SIZES.BUTTON_WIDTH,
+      height: theme.SIZES.BUTTON_HEIGHT,
       alignItems: "center",
       justifyContent: "center"
     },
-    customText: {
-      fontSize: theme.SIZES.FONT,
-      color: theme.COLORS.WHITE
+    text: {
+      fontSize: theme.SIZES.FONT
     },
     ...colorsProps,
     androidShadow: {

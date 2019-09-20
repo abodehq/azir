@@ -45,14 +45,16 @@ export function withAzir(Component, styles) {
 
 export const AzirProvider: React.FC<Props> = props => {
   const { theme, children } = props;
-  const { STRINGS: CUSTOM_STRINGS, COLORS: CUSTOM_COLORS, SIZES: CUSTOM_SIZES, customTheme } = theme;
+
+  const {SETTINGS:CUSTOM_SETTINGS, STRINGS: CUSTOM_STRINGS, COLORS: CUSTOM_COLORS, SIZES: CUSTOM_SIZES, customTheme } = theme;
+
   const providerTheme = {
+    SETTINGS: { ...AzirTheme.SETTINGS, ...CUSTOM_SETTINGS },
     STRINGS: { ...AzirTheme.STRINGS, ...CUSTOM_STRINGS },
     COLORS: { ...AzirTheme.COLORS, ...CUSTOM_COLORS },
     SIZES: { ...AzirTheme.SIZES, ...CUSTOM_SIZES },
     ...customTheme
   };
-
   return <AzirContext.Provider value={providerTheme}>{children}</AzirContext.Provider>;
 };
 
@@ -64,28 +66,7 @@ type Props = {
 //default props 4
 AzirProvider.defaultProps = { children: null, theme: {} };
 
-export const colorsProps = {
-  primary: {
-    backgroundColor: LC_COLORS.PRIMARY
-  },
-  theme: {
-    backgroundColor: LC_COLORS.THEME
-  },
-  info: {
-    backgroundColor: LC_COLORS.INFO
-  },
-  error: {
-    backgroundColor: LC_COLORS.ERROR
-  },
-  warning: {
-    backgroundColor: LC_COLORS.WARNING
-  },
-  success: {
-    backgroundColor: LC_COLORS.SUCCESS
-  },
-  transparent: {
-    backgroundColor: LC_COLORS.TRANSPARENT
-  },
+export const colorsProps =  {
   shadow: {
     shadowColor: LC_COLORS.BLOCK,
     shadowOffset: { width: 0, height: 4 },
@@ -95,8 +76,8 @@ export const colorsProps = {
   },
 };
 
-export const getColorByName = color => {
-  return colorsProps[color] ? colorsProps[color].backgroundColor : color;
+export const getColorByName = (color,COLORS) => {
+  return COLORS[color.toUpperCase()] ? COLORS[color.toUpperCase()] : color;
 };
 
 const Sizes = {
@@ -108,3 +89,4 @@ const Sizes = {
 export const getSize = size => {
   return Sizes[size] ? Sizes[size] : typeof size === "number" ? size : Sizes["small"];
 };
+ 

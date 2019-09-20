@@ -22,14 +22,14 @@ const LcViewMoreText: React.FC<Props> = props => {
 
   let trimmedTextHeight: number = null;
   let fullTextHeight: number = null;
-
+  const __numberOfLines = _numberOfLines ? _numberOfLines : theme.SIZES.NUMBER_OF_LINES;
   const [isFulltextShown, setIsFulltextShown] = useState(true);
-  const [numberOfLines, setNumberOfLines] = useState(props.numberOfLines);
+  const [numberOfLines, setNumberOfLines] = useState(__numberOfLines);
   const [shouldShowMore, setShouldShowMore] = useState(false);
 
   //in case user change mobile oriantation
   const onChangeScreenDimensions = data => {
-    setNumberOfLines(props.numberOfLines);
+    setNumberOfLines(__numberOfLines);
     setIsFulltextShown(true);
     setShouldShowMore(false);
   };
@@ -54,7 +54,7 @@ const LcViewMoreText: React.FC<Props> = props => {
   };
 
   const renderViewMore = () => {
-    const textStyles = [];
+    const textStyles = [styles.text];
     textStyles.push(styles.footerText);
     viewMoreStyle && textStyles.push(viewMoreStyle);
     return (
@@ -64,7 +64,7 @@ const LcViewMoreText: React.FC<Props> = props => {
     );
   };
   const renderViewLess = () => {
-    const textStyles = [];
+    const textStyles = [styles.text];
     textStyles.push(styles.footerText);
     viewLessStyle && textStyles.push(viewLessStyle);
     return (
@@ -78,7 +78,7 @@ const LcViewMoreText: React.FC<Props> = props => {
   };
 
   const onPressLess = () => {
-    setNumberOfLines(props.numberOfLines);
+    setNumberOfLines(__numberOfLines);
   };
   const onLayoutTrimmedText = event => {
     const { height } = event.nativeEvent.layout;
@@ -115,7 +115,7 @@ const LcViewMoreText: React.FC<Props> = props => {
   return (
     <View style={getWrapperStyle()}>
       <View onLayout={onLayoutTrimmedText}>
-        <Text style={props.textStyle} numberOfLines={numberOfLines} {...rest}>
+        <Text style={[styles.text, props.textStyle]} numberOfLines={numberOfLines} {...rest}>
           {children}
         </Text>
         {renderFooter()}
@@ -139,7 +139,7 @@ type Props = {
   theme: any;
 };
 LcViewMoreText.defaultProps = {
-  numberOfLines: AzirTheme.SIZES.NUMBER_OF_LINES,
+  numberOfLines: null,
   viewMoreText: "View More",
   viewMoreStyle: {},
   viewLessText: "View Less",
@@ -147,6 +147,9 @@ LcViewMoreText.defaultProps = {
 };
 const styles = theme =>
   StyleSheet.create({
+    text: {
+      textAlign: theme.SETTINGS.RTL ? "right" : "left"
+    },
     fullTextWrapper: {
       opacity: 0,
       position: "absolute",

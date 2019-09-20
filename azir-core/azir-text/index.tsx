@@ -1,5 +1,5 @@
 import React from "react";
-import AzirTheme, { withAzir, colorsProps } from "azir-theme";
+import AzirTheme, { withAzir, colorsProps,getColorByName } from "azir-theme";
 import { Text, StyleSheet } from "react-native";
 import normalize from "./normalize";
 
@@ -26,15 +26,15 @@ export { default as sanFranciscoSpacing } from "./helpers/sanFranciscoSpacing";
 // export { default as materialColors } from "./helpers/materialColors";
 
 const AzirText: React.FC<Props> = props => {
-  const { style, h1, h2, h3, h4, h5, p, muted, neutral, size, color, bold, italic, center, children, styles, theme, ...rest } = props;
-  let _color = color;
-  const themeColor = styles[color];
-
-  if (themeColor) _color = themeColor.backgroundColor;
-
+  const { style, h1, h2, h3, h4, h5, p, muted, neutral, size :_size, color : _color , bold, italic, center, children, styles, theme, ...rest } = props;
+  //Set Default Values based on selected theme
+  const color = _color ? _color :  theme.COLORS.BLACK;
+  const size = _size ? _size :   theme.SIZES.FONT;
+  //end
   return (
     <Text
       style={[
+        size && { fontSize: size },
         h1 && { fontSize: normalize(44) },
         h2 && { fontSize: normalize(38) },
         h3 && { fontSize: normalize(30) },
@@ -46,8 +46,7 @@ const AzirText: React.FC<Props> = props => {
         bold && { fontWeight: "bold" },
         italic && { fontStyle: "italic" },
         style && style,
-        size && { fontSize: size },
-        color && { color: _color },
+        color && { color: getColorByName(color,theme.COLORS) },
         center && { textAlign: "center" }
       ]}
       {...rest}
@@ -86,14 +85,13 @@ AzirText.defaultProps = {
   h5: false,
   center: false,
   p: false,
-  size: 0,
-  color: AzirTheme.COLORS.BLACK,
+  size: null,
+  color: null,
   muted: false,
   bold: false,
   italic: false,
   neutral: false,
-  styles: {},
-  theme: AzirTheme
+  styles: {}
 };
 const styles = theme =>
   StyleSheet.create({

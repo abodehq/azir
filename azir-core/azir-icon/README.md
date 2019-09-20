@@ -1,105 +1,186 @@
-# react-native-fontawesome
-React Native Fontawesome Icons
+# Azir Framwork list :  [https://azir.io/docs](https://azir.io/docs)
 
-[![npm version](https://img.shields.io/npm/v/react-native-fontawesome.svg?style=flat-square)](https://www.npmjs.com/package/react-native-fontawesome)
-[![npm downloads](https://img.shields.io/npm/dm/react-native-fontawesome.svg?style=flat-square)](https://www.npmjs.com/package/react-native-fontawesome)
+# Icon
+
+A great component that give you the ability you to create your own custom icons .
+
+> We give you a tool to generate and search for fontawsome icons directly. [Icons List](../../guides/fontawesomelist)
 
 # Benefits
+
+- Create you own custome icons which you can control the size of the font icon file.
+
 - No bloatware, one package with one iconset, nothing more nothing less
+
 - Full set of FontAwesome Icons properly updated
+
 - Insanely fast with minimal memory footprint
-- Uses the OS to render icons, for best in class performance (refer to performance note bellow)
 
-# Installation process
+<p align="center">
+ <img src="https://i.imgur.com/GYK34HW.png" />
+</p>
 
-## Using yarn
-`npm i -g yarn`
+## Installation
 
-`yarn add react-native-fontawesome`
+to install the latest version of `azir-icon` you only need to run:
 
-## Using npm
-`npm i --save react-native-fontawesome`
-
-This module uses Font Awesome version [5.9.0](https://github.com/FortAwesome/Font-Awesome/releases/tag/5.9.0). There is no need to link binaries just import the package and include the Font File in your project.
-
-This package will not download Font Awesome for you. You have to manually download the package and put it into your working folder.
-
-Follow this guides for adding FontAwesome.ttf to your projects:
-
-[Adding Custom Fonts to A React Native Application for IOS](https://medium.com/@dabit3/adding-custom-fonts-to-react-native-b266b41bff7f)
-
-[Custom Fonts in React Native for Android](https://medium.com/@gattermeier/custom-fonts-in-react-native-for-android-b8a331a7d2a7)
-
-
-# Usage
-```jsx
-import FontAwesome, { SolidIcons, RegularIcons, BrandIcons } from 'react-native-fontawesome';
-
-...
-render() {
-  return (
-    <View>
-        <FontAwesome icon={SolidIcons.smile} />
-        <FontAwesome icon={RegularIcons.smileWink} />
-        <FontAwesome icon={BrandIcons.github} />
-    </View>
-  );
-},
+```bash
+npm install azir-icon  --save
 ```
 
-# Note on hyphens
-Javascript don't accept hyphens as valid object names hence all hyphens were removed and
-names converted to camel case.
+or
 
-Example: `th-large` becomes `thLarge`
-
-You can parse the name if you want, like this:
-
-```jsx
-import { parseIconName } from 'react-native-fontawesome';
-
-const validIcon = parseIconFromClassName('fas fa-chevron-left') // will be parsed to chevronLeft
-
-// So anywhere you would have used Icons.chevronLeft (or some other icon name) 
-// you can now just use the returned value directly (validIcon in this example).  
-// The function parseIconName internally returns an BrandIcons[parsedIconName] or SolidIcons[parsedIconName] or RegularIcons[parsedIconName] result.
-// So you can use like that:
-
-<FontAwesome style={{fontSize: 32}} icon={validIcon}>
+```bash
+yarn add azir-icon
 ```
 
-You can use that in some cases when you store the icon from web in you database and then you use dynamically in your mobile.
+## Installation process
 
-# Styling
-You can apply styles directly into the FontAwesome RN component by just passing a style as you do in a `<Text>` component.
-
-```jsx
-<FontAwesome style={{fontSize: 32}} icon={BrandIcons.github}>
-```
-
-You can find all font families files here: [fontawesome-free-5.9.0-web.zip](https://use.fontawesome.com/releases/v5.9.0/fontawesome-free-5.9.0-web.zip)
-
-# Warning!
-
-Font Awesome have some paid icons and the link above is for downloading the free icons set.
-So if you choose some icon from our list, and this icon does not show properly, check
-if the icon that you choose is a paid one before open a issue. In this case, you must 
-buy the PRO icons set in the [Font Awesome's PRO](https://fontawesome.com/pro) website.
-In case you are using a paid icon, and you are using a paid icon set that you already
-bough, you must pass a `pro` property to the icon, like this:
+> Azir Theme using **[azir-font](https://drive.google.com/open?id=10f_C_DA3azuyF6myslkFQWF4jpxhFy5Z)** as a default font icons for all azir components Icons like **(Spinner,Radio, Switch, CheckBox, RadioGroup, CheckboxGroup )**, its required to load at least azir font into your app
 
 ```jsx
-<FontAwesome icon={RegularIcons.exclamationTriangle} pro={true}>
+async function loadResourcesAsync() {
+  await Promise.all([
+    Font.loadAsync({
+      "azir-font": require("./assets/fonts/azir-font.ttf")
+    })
+  ]);
+}
 ```
 
-# Why this is fast, and uses almost no extra memory
-This package uses the Text element to render Icons. The Text element delegates
-to the OS the render process of the icons based on the Font file.
-Both IOS and Android render fonts amazingly fast with little memory overhead. In essence
-FontAwesome.ttf will be used by the OS to render icons and will benefit of years
-of native software improvement as well hardware acceleration.
+Font Awesome Icons provide also three types of free icons set . you can download which type you want or even you can download them all if you want ;) in addtion You can create your own custom font..
 
-# Do you want to create a Custom Font with your Icons?
+**Create Custom Font Icons**
 
-Take a look on this https://github.com/entria/font-generator, it will generate a TTF font to be used much like this package
+> you can use one of the online font icons generator like [Fontello](https://fontello.com/) which we are using in our custom font example.
 
+| Type                     | Font Name(Required) | Download                                                                               | Size   |
+| ------------------------ | ------------------- | -------------------------------------------------------------------------------------- | ------ |
+| AzirIcons (**REQUIRED**) | azir-font           | [azir-font](https://drive.google.com/open?id=10f_C_DA3azuyF6myslkFQWF4jpxhFy5Z)        | 12 KB  |
+| RegularIcons             | fa-regular-400      | [fa-regular-400](https://drive.google.com/open?id=1yq_sJ5le5S1S06msvaO6W16-9Oo7dXfa)   | 34 KB  |
+| SolidIcons               | fa-solid-900        | [fa-solid-900](https://drive.google.com/open?id=18vQUn80hrR3lxTvB1toRE5Kf0pE37eif)     | 188 KB |
+| BrandIcons               | fa-brands-400       | [fa-brands-400](https://drive.google.com/open?id=1qJQ0t9ZchUaikh3TYeuIjGQgS3wrjxEW)    | 127KB  |
+| Custom Font              | custom-font-icon    | [custom-font-icon](https://drive.google.com/open?id=18reeFawb37lZrYh-yPNwqNW75ldhdSrc) | 10 KB  |
+
+> next step is to load these fonts into your app , check below example if you are using expo .
+
+```jsx
+async function loadResourcesAsync() {
+  await Promise.all([
+    Font.loadAsync({
+      "azir-font": require("./assets/fonts/azir-font.ttf"),
+      "fa-solid-900": require("./assets/fonts/fa-solid-900.ttf"),
+      "fa-regular-400": require("./assets/fonts/fa-solid-900.ttf"),
+      "fa-brands-400": require("./assets/fonts/fa-brands-400.ttf"),
+      "custom-font-icon": require("./assets/fonts/custom-font-icon.ttf") // if you want to use Custom font. you can change the name of the font and the file as you want ( only for custom font icon)
+    })
+  ]);
+}
+```
+
+> if you want to use your custom font icons, you need to do one extra step to map your fonts icons and inject them to our Dictionary . which is an easy step .
+
+- Create new javascript file ( for example CustomIcons.js)
+
+- Export your icons object and make sure that you include in the first element : **\_fontFamily: "custom-font-icon"** the same name as you used in Font.loadAsync.
+
+- dont forget to add **\u** before each icon code. also icons name should be **camel case**.
+
+```jsx
+export default CustomIcons = {
+  _fontFamily: "custom-font-icon",
+  unHappy: "\uE802",
+  wink: "\uE813",
+  fireStation: "\uE817",
+  rss: "\uE800",
+  githubCircled: "\uE801",
+  sound: "\uE804",
+  jabber: "\uF317"
+};
+```
+
+### That's it!
+
+**Examples**
+
+#### Font Awesome Icons :
+
+```jsx
+import Icon, { SolidIcons, RegularIcons, BrandIcons } from "azir-icon";
+---
+<Icon icon={SolidIcons.appleAlt} color="#ff9900" style={ {
+    padding: 15, textShadowColor: "#ff0000",
+    textShadowOffset: { width: -1, height: -1 },
+    textShadowRadius: 2
+    } } />
+<Icon icon={RegularIcons.bellSlash} style={ { padding: 15, fontSize: 30 } } />
+<Icon icon={BrandIcons.amazonPay} color="success" size={100} shadow style={ { padding: 15 } } />
+```
+
+<img src="https://i.imgur.com/eX6sk3B.jpg" alt="Basic" style="width:150px" />
+
+#### Custom Font icons :
+
+```jsx
+import Icon from "azir-icon";
+import CustomIcons from "./CustomIcons";//check above code of this object
+---
+<Icon icon={CustomIcons.unHappy} style={ { padding: 15, fontSize: 30 } } />
+<Icon icon={CustomIcons.fireStation} style={ { padding: 15, fontSize: 30 } } />
+<Icon icon={CustomIcons.sound} style={ { padding: 15, fontSize: 30 } } />
+<Icon icon={CustomIcons.jabber} style={ { padding: 15, fontSize: 30 } } />
+```
+
+<img src="https://i.imgur.com/qoXCiT8.jpg" alt="Basic" style="width:150px" />
+
+### Props
+
+- [`icon`](icon#icon)
+- [`color`](icon#color)
+- [`size`](icon#size)
+- [`shadow`](icon#shadow)
+- [`style`](icon#style)
+
+---
+
+# Reference
+
+### `icon`
+
+set the Icon using one of the fontawsome free icons set.
+
+| Type                                               | Required | Default          |
+| -------------------------------------------------- | -------- | ---------------- |
+| SolidIcons, RegularIcons, BrandIcons , CustomIcons | YES      | SolidIcons.smile |
+
+### `color`
+
+color of the Icon
+
+| Type                                       | Required | Default |
+| ------------------------------------------ | -------- | ------- |
+| [azir-color](../../guides/color-reference) | No       | theme   |
+
+### `size`
+
+set the size of the icon , you can instead of using the size prop, you just override the style prop.
+
+| Type   | Required | Default                   |
+| ------ | -------- | ------------------------- |
+| Number | No       | AzirTheme.SIZES.ICON_SIZE |
+
+### `shadow`
+
+If true, show shadow effect for this component.
+
+| Type | Required | Default |
+| ---- | -------- | ------- |
+| bool | No       | false   |
+
+### `style`
+
+override Icon style,since we are using text to render icon then you can use all react native text props
+
+| Type  | Required |
+| ----- | -------- |
+| style | No       |

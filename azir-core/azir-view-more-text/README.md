@@ -1,9 +1,6 @@
----
-title: Blue Eye View More Text
-description:
----
+# Azir Framwork :  [https://azir.io/docs](https://azir.io/docs)
 
-# View More Text
+# Azir View More Text
 
 A super lightweight plugin to expand/collapse text in React-Native. Truncated text is ended with ... .
 

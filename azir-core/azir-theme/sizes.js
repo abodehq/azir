@@ -12,12 +12,10 @@ const SIZES = {
 
   //Icon Styles
   ICON_SIZE: 16 * 2.5,
-  ICON_SHADOW_RADIUS: 10,
-  ICON_SHADOW_OFFSET: { width: -1, height: 1 },
 
   // Button styles
-  BUTTON_WIDTH: 16 * 9,
-  BUTTON_HEIGHT: 16 * 2.75,
+  BUTTON_WIDTH: null,
+  BUTTON_HEIGHT: null,
   BUTTON_SHADOW_RADIUS: 10,
 
   //radio, checkbox
@@ -27,10 +25,25 @@ const SIZES = {
   // View More Text
   NUMBER_OF_LINES: 3,
 
+  //Avatar Size 
+  AVATAR_SIZE :"medium",
   //HR
   HR_WIDTH: 1,
   HR_PADDING: 16,
   HR_TEXT_PADDING: 16,
+  
+  // Input styles
+  INPUT_ICON_SIZE: 16 * 1.2,
+  INPUT_CONTAINER_VERTICAL: 16 / 2,
+  INPUT_BORDER_RADIUS: 0,
+  INPUT_BORDER_WIDTH: 16 * 0.05,
+  INPUT_HEIGHT: 16 * 2.75,
+  INPUT_HORIZONTAL: 16 * 0.7,
+  INPUT_TEXT: 16 * 0.875,
+  INPUT_HELP_TEXT: 16 * 0.8,
+  INPUT_ROUNDED: 16 * 1.7,
+
+
 
   // Block styles
   BLOCK_SHADOW_OPACITY: 0.15,
@@ -51,18 +64,8 @@ const SIZES = {
   CARD_ROUND: 16 * 0.1875,
   CARD_ROUNDED: 16 * 0.5,
 
-  // Input styles
-  INPUT_CONTAINER_VERTICAL: 16 / 2,
-  INPUT_BORDER_RADIUS: 0,
-  INPUT_BORDER_WIDTH: 16 * 0.05,
-  INPUT_HEIGHT: 16 * 2.75,
-  INPUT_HORIZONTAL: 16 * 0.7,
-  INPUT_TEXT: 16 * 0.875,
-  INPUT_LABEL_TEXT: 16 * 0.9,
-  INPUT_LABEL_BOTTOM: 16 / 4,
-  INPUT_HELP_TEXT: 16 * 0.8,
-  INPUT_ROUNDED: 16 * 1.7,
-  INPUT_ICON_SIZE: 16 * 1.2,
+
+
 
   // NavBar styles
   NAVBAR_HEIGHT: 16 * 4.125,

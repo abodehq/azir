@@ -1,10 +1,11 @@
 {
   "name": "azir-avatar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An advance avatar component that should render nicely on any platform. Supports a great level of customization.",
   "main": "index.tsx",
   "dependencies": {
-    "azir-theme": "^1.0.0"
+    "azir-theme": "^1.x.x",
+    "azir-icon":  "^1.x.x"
   },
   "peerDependencies": {
     "react": "*",

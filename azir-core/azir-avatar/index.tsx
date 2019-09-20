@@ -1,18 +1,19 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
-import AzirTheme, { withAzir, colorsProps, getColorByName, getSize } from "azir-theme";
-import Icon, { AzirIcons, SolidIcons, RegularIcons, BrandIcons } from "azir-icon";
+import { withAzir, colorsProps, getColorByName, getSize } from "azir-theme";
+import Icon from "azir-icon";
 const AzirAvatarIcon: React.FC<Props> = props => {
-  const {shadow, children, color, rounded, contentColor, style, styles, icon, source, title, size, contentStyle, ...rest } = props;
-  const _size = getSize(size);
+  const {theme,shadow, children, color, rounded, contentColor, style, styles, icon, source, title, size:_size, contentStyle, ...rest } = props;
+  const size = _size ?  getSize(_size) :  getSize(theme.SIZES.AVATAR_SIZE);
+
   return (
     <View
       style={[
         {
-          width: _size,
-          height: _size,
-          borderRadius: rounded ? _size / 2 : 0,
-          backgroundColor: getColorByName(color)
+          width: size,
+          height: size,
+          borderRadius: rounded ? size / 2 : 0,
+          backgroundColor:  getColorByName(color,theme.COLORS)
         },
         shadow && styles.shadow,
         styles.container,
@@ -20,11 +21,11 @@ const AzirAvatarIcon: React.FC<Props> = props => {
       ]}
     >
       {icon ? (
-        <Icon icon={icon} color={getColorByName(contentColor)} size={_size * 0.6} style={[ contentStyle]} {...rest} />
+        <Icon icon={icon} color={getColorByName(contentColor,theme.COLORS)} size={size * 0.6} style={[contentStyle]} {...rest} />
       ) : source ? (
-        <Image style={[{ width: _size, height: _size, borderRadius: rounded ? _size / 2 : 0 }, contentStyle]} source={source} {...rest} />
+        <Image style={[{ width: size, height: size, borderRadius: rounded ? size / 2 : 0 }, contentStyle]} source={source} {...rest} />
       ) : title ? (
-        <Text style={[styles.title, { fontSize: _size / 2, color: getColorByName(contentColor) }, contentStyle]} {...rest}>
+        <Text style={[styles.title, { fontSize: size / 2, color: getColorByName(contentColor,theme.COLORS) }, contentStyle]} {...rest}>
           {title}
         </Text>
       ) : (
@@ -54,7 +55,7 @@ AzirAvatarIcon.defaultProps = {
   contentColor: "white",
   icon: null,
   source: null,
-  size: "medium",
+  size: null,
   rounded: true,
   title: null,
   contentStyle: null,

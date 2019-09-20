@@ -1,10 +1,10 @@
 {
   "name": "azir-hr",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An advance HR component that should render nicely on any platform. Supports a great level of customization.",
   "main": "index.tsx",
   "dependencies": {
-    "azir-theme": "^1.0.0"
+    "azir-theme": "^1.x.x"
   },
   "peerDependencies": {
     "react": "*",

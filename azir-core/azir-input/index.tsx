@@ -2,37 +2,39 @@ import React, { useState } from "react";
 import { ActivityIndicator, TextInput, StyleSheet, TouchableOpacity, TouchableHighlight, Text, View } from "react-native";
 import AzirTheme, { withAzir, colorsProps, getColorByName } from "azir-theme";
 import Icon, { SolidIcons } from "azir-icon";
-const renderIcon = (icon, iconPosition, iconColor, iconSize, disabled) => {
-  if (typeof icon === "string") return <Icon icon={icon} size={iconSize} color={getColorByName(iconColor)} />;
+const renderIcon = (theme,icon, iconPosition, iconColor, iconSize, disabled) => {
+  if (typeof icon === "string") return <Icon icon={icon} size={iconSize} color={getColorByName(iconColor,theme.COLORS)} />;
   return icon;
 };
-const renderPassIcon = (renderPasswordIcon, iconPosition, iconColor, iconSize, disabled, password, setPassword) => {
+const renderPassIcon = (theme,renderPasswordIcon, iconPosition, iconColor, iconSize, disabled, password, setPassword) => {
   return (
     <TouchableOpacity disabled={disabled} onPress={() => setPassword(!password)}>
       {renderPasswordIcon && renderPasswordIcon(password)}
       {!renderPasswordIcon && (
-        <Icon icon={password ? AzirTheme.STRINGS.INPUT_ICON_PASS_ON : AzirTheme.STRINGS.INPUT_ICON_PASS_OFF} size={iconSize} color={getColorByName(iconColor)} />
+        <Icon icon={password ? theme.STRINGS.INPUT_ICON_PASS_ON : theme.STRINGS.INPUT_ICON_PASS_OFF} size={iconSize} color={getColorByName(iconColor,theme.COLORS)} />
       )}
     </TouchableOpacity>
   );
 };
 const AzirInput: React.FC<Props> = props => {
   const {
+    theme,
     type,
     borderless,
     icon,
-    iconSize,
+    iconSize:_iconSize,
     iconColor,
     color,
+    selectionColor,
     bgColor,
-    placeholderTextColor,
+    placeholderTextColor:_placeholderTextColor,
     label,
     labelPosition,
     help,
     helpPosition,
     rounded,
     disabled,
-    iconPosition,
+    iconPosition : _iconPosition,
     styles,
     containerStyle,
     style,
@@ -45,16 +47,25 @@ const AzirInput: React.FC<Props> = props => {
   } = props;
 
   const [password, setPassword] = useState(props.password);
+
+  //Set Default Values based on selected theme
+  const iconPosition = _iconPosition ? _iconPosition : theme.SETTINGS.RTL ? "left" : "right";
+  const iconSize = _iconSize ? _iconSize : theme.SIZES.INPUT_ICON_SIZE;
+  const placeholderTextColor = _placeholderTextColor ? _placeholderTextColor :  theme.COLORS.GREY;
+
+  
+  //end
+
   const inputViewStyles = [
     styles.inputStyle,
     styles.inputContainer,
-    bgColor && { backgroundColor: getColorByName(bgColor) },
+    bgColor && { backgroundColor:getColorByName(bgColor,theme.COLORS)},
     rounded && styles.rounded,
     borderless && styles.borderless,
     labelPosition === "top" || labelPosition === "bottom" ? { width: "100%" } : { flexGrow: 1 },
     style
   ];
-  const inputStyles = [styles.inputView, icon && styles.inputIcon, styles.inputText, color && { color: getColorByName(color) }, inputStyle];
+  const inputStyles = [styles.inputView, icon && styles.inputIcon, styles.inputText, color && { color: getColorByName(color,theme.COLORS) }, inputStyle];
   const labelContent =
     label && typeof label === "string" ? (
       <Text style={[styles.label, (labelPosition === "left" || labelPosition === "right") && { alignSelf: "center" }, labelStyle]}>{label}</Text>
@@ -64,19 +75,20 @@ const AzirInput: React.FC<Props> = props => {
   const helpContent = help && typeof help === "string" ? <Text style={[styles.helpText, helpStyle]}>{help}</Text> : help;
   const InputContainer = (
     <View style={inputViewStyles}>
-      {iconPosition == "left" && renderIcon(icon, iconPosition, iconColor, iconSize, disabled)}
-      {!icon && iconPosition == "left" && props.password && renderPassIcon(renderPasswordIcon, iconPosition, iconColor, iconSize, disabled, password, setPassword)}
+      {iconPosition == "left" && renderIcon(theme,icon, iconPosition, iconColor, iconSize, disabled)}
+      {!icon && iconPosition == "left" && props.password && renderPassIcon(theme,renderPasswordIcon, iconPosition, iconColor, iconSize, disabled, password, setPassword)}
       <TextInput
         keyboardType={type}
         style={inputStyles}
         editable={!disabled}
         secureTextEntry={password}
-        placeholderTextColor={getColorByName(placeholderTextColor)}
+        placeholderTextColor={getColorByName(placeholderTextColor,theme.COLORS)}
         underlineColorAndroid="transparent"
+        selectionColor={getColorByName(selectionColor,theme.COLORS)}
         {...rest}
       />
-      {iconPosition == "right" && renderIcon(icon, iconPosition, iconColor, iconSize, disabled)}
-      {!icon && iconPosition == "right" && props.password && renderPassIcon(renderPasswordIcon, iconPosition, iconColor, iconSize, disabled, password, setPassword)}
+      {iconPosition == "right" && renderIcon(theme,icon, iconPosition, iconColor, iconSize, disabled)}
+      {!icon && iconPosition == "right" && props.password && renderPassIcon(theme,renderPasswordIcon, iconPosition, iconColor, iconSize, disabled, password, setPassword)}
     </View>
   );
   if (labelPosition === "left" || labelPosition === "right") {
@@ -85,7 +97,7 @@ const AzirInput: React.FC<Props> = props => {
         {helpPosition == "top" && helpContent}
         <View
           style={[
-            { flexDirection: labelPosition === "left" ? "row" : "row-reverse", marginVertical: AzirTheme.SIZES.INPUT_CONTAINER_VERTICAL, alignContent: "center" },
+            { flexDirection: labelPosition === "left" ? "row" : "row-reverse", marginVertical: theme.SIZES.INPUT_CONTAINER_VERTICAL, alignContent: "center" },
             containerStyle
           ]}
         >
@@ -97,7 +109,7 @@ const AzirInput: React.FC<Props> = props => {
     );
   }
   return (
-    <View style={[{ marginVertical: AzirTheme.SIZES.INPUT_CONTAINER_VERTICAL, alignContent: "center" }, containerStyle]}>
+    <View style={[{ marginVertical: theme.SIZES.INPUT_CONTAINER_VERTICAL, alignContent: "center" }, containerStyle]}>
       {labelContent}
       {helpPosition == "top" && helpContent}
       {InputContainer}
@@ -114,7 +126,8 @@ type Props = {
   icon?: any;
   iconSize: number;
   iconColor: string | "primary" | "theme" | "error" | "warning" | "success" | "info" | "transparent";
-  color: string | "primary" | "theme" | "error" | "warning" | "success" | "info" | "transparent"; //button background
+  color: string | "primary" | "theme" | "error" | "warning" | "success" | "info" | "transparent"; 
+  selectionColor : string | "primary" | "theme" | "error" | "warning" | "success" | "info" | "transparent"; 
   bgColor: string | "primary" | "theme" | "error" | "warning" | "success" | "info" | "transparent";
   rounded: boolean;
   disabled: boolean;
@@ -139,17 +152,18 @@ AzirInput.defaultProps = {
   borderless: false,
   icon: null,
   iconColor: "theme",
-  iconSize: AzirTheme.SIZES.INPUT_ICON_SIZE,
+  iconSize: null,
   color: "theme",
+  selectionColor : "theme",
   bgColor: null,
   rounded: false,
   disabled: false,
-  placeholderTextColor: AzirTheme.COLORS.GREY,
+  placeholderTextColor:null,
   label: null,
   helpPosition: "bottom",
   labelPosition: "top",
   help: null,
-  iconPosition: AzirTheme.SETTINGS.RTL ? "left" : "right",
+  iconPosition: null,
   containerStyle: null,
   inputStyle: null,
   style: null,

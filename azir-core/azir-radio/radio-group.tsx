@@ -65,13 +65,14 @@ type Props = {
 };
 AzirRadioGroup.defaultProps = {
   options: [],
-  flexDirection: "row"
+  flexDirection: null
 };
 const styles = theme =>
   StyleSheet.create({
     container: {
-      flexDirection: "row",
+      flexDirection: theme.SETTINGS.RTL ? "row-reverse" : "row",
       alignItems: "center",
+      flexWrap: "wrap",
       justifyContent: "flex-start"
     }
   });

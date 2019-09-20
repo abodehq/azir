@@ -1,11 +1,11 @@
 {
   "name": "azir-view-more-text",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A super lightweight plugin to expand/collapse text in React-Native. Truncated text is ended with ... .",
   "main": "index.tsx",
   "dependencies": {
-    "azir-theme": "^1.0.0",
-    "azir-helpers": "^1.0.0"
+    "azir-theme": "^1.x.x",
+    "azir-helpers": "^1.x.x"
   },
   "peerDependencies": {
     "react": "*",
