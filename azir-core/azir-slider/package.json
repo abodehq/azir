@@ -1,17 +1,44 @@
 {
   "name": "azir-slider",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "An advance Slider component that should render nicely on any platform. Supports a great level of customization.",
+  "main": "index.tsx",
   "dependencies": {
-    "azir-theme": "1.x"
+    "azir-theme": "^1.x.x"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abodehq/azir.git"
+  },
   "keywords": [
-    "test"
+    "react-native",
+    "react-component",
+    "react-native-component",
+    "react",
+    "react native",
+    "mobile",
+    "ios",
+    "android",
+    "ui",
+    "expo",
+    "Slider",
+    "advance slider",
+    "native slider",
+    "azir slider",
+    "react native slider",
+    "expo slider"
   ],
-  "author": "abed_q@hotmail.com",
-  "license": "ISC"
+  "author": "Abed Allateef Qaisi abed_q@hotmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abodehq/azir/issues"
+  },
+  "homepage": "https://azir.io/"
 }

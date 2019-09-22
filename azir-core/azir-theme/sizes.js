@@ -25,13 +25,13 @@ const SIZES = {
   // View More Text
   NUMBER_OF_LINES: 3,
 
-  //Avatar Size 
-  AVATAR_SIZE :"medium",
+  //Avatar Size
+  AVATAR_SIZE: "medium",
   //HR
   HR_WIDTH: 1,
   HR_PADDING: 16,
   HR_TEXT_PADDING: 16,
-  
+
   // Input styles
   INPUT_ICON_SIZE: 16 * 1.2,
   INPUT_CONTAINER_VERTICAL: 16 / 2,
@@ -43,7 +43,9 @@ const SIZES = {
   INPUT_HELP_TEXT: 16 * 0.8,
   INPUT_ROUNDED: 16 * 1.7,
 
-
+  //Slider
+  TRACK_SIZE: 5,
+  THUMB_SIZE: 25,
 
   // Block styles
   BLOCK_SHADOW_OPACITY: 0.15,
@@ -64,9 +66,6 @@ const SIZES = {
   CARD_ROUND: 16 * 0.1875,
   CARD_ROUNDED: 16 * 0.5,
 
-
-
-
   // NavBar styles
   NAVBAR_HEIGHT: 16 * 4.125,
   NAVBAR_VERTICAL: 16,
@@ -83,10 +82,6 @@ const SIZES = {
   // Checkbox
   CHECKBOX_WIDTH: 20,
   CHECKBOX_HEIGHT: 20,
-
-  // Slider
-  TRACK_SIZE: 4,
-  THUMB_SIZE: 25,
 
   // Radio Button
   RADIO_WIDTH: 24,

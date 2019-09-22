@@ -1,188 +1,311 @@
-import React, { PureComponent, useState } from "react";
-import { View, Animated, StyleSheet, PanResponder } from "react-native";
-import PropTypes from "prop-types";
-import AzirTheme, { withAzir } from "azir-theme";
-const LcSlider: React.FC<Props> = props => {
-  const { step, value, styles, minimumValue, maximumValue, trackStyle, thumbStyle, activeColor, disabled } = props;
+import React, { useState, useEffect, useRef } from "react";
+import { withAzir, getColorByName } from "azir-theme";
+import { Animated, StyleSheet, PanResponder, View, Easing, I18nManager } from "react-native";
+
+function Rect(x, y, width, height) {
+  this.x = x;
+  this.y = y;
+  this.width = width;
+  this.height = height;
+}
+
+Rect.prototype.containsPoint = function(x, y) {
+  return x >= this.x && y >= this.y && x <= this.x + this.width && y <= this.y + this.height;
+};
+
+const DEFAULT_ANIMATION_CONFIGS = {
+  spring: {
+    friction: 7,
+    tension: 100
+  },
+  timing: {
+    duration: 150,
+    easing: Easing.inOut(Easing.ease),
+    delay: 0
+  }
+};
+
+const AzirSlider: React.FC<Props> = props => {
+  const {
+    value: _value,
+    minimumValue,
+    maximumValue,
+    thumbTouchSize: _thumbTouchSize,
+    disabled,
+    step,
+    theme,
+    children,
+    styles,
+    style,
+    trackStyle,
+    thumbStyle,
+    animationType,
+    progressTrackColor,
+    trackColor,
+    thumbColor,
+    trackSize: _trackSize,
+    thumbSize: _thumbSize,
+    icon,
+    onStart,
+    onChange,
+    onComplete,
+    ...rest
+  } = props;
+
+  const __thumbSize = _thumbSize ? _thumbSize : theme.SIZES.THUMB_SIZE;
+  const thumbTouchSize = _thumbTouchSize ? _thumbTouchSize : { width: 20 + __thumbSize, height: 20 + __thumbSize };
+  const [value, setValue] = useState(new Animated.Value(_value));
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-  const [trackSize, setTrackSize] = useState({ width: 0, height: 0 });
   const [thumbSize, setThumbSize] = useState({ width: 0, height: 0 });
-  const [measured, setMeasured] = useState(false);
-  const position: any = new Animated.Value(value);
-  let _previousLeft = 0;
-  const _panResponder = PanResponder.create({
-    onMoveShouldSetPanResponderCapture: () => true,
-    onPanResponderGrant: (e, gestureState) => {
-      _previousLeft = _getThumbLeft(_getCurrentVal());
-      _fireChangeEvent("onSlidingStart");
-    },
-    onPanResponderMove: (e, gestureState) => {
-      if (disabled) {
-        return;
-      }
-
-      _setCurrentValue(_getValue(gestureState));
-      _fireChangeEvent("onValueChange");
-    },
-    onPanResponderRelease: (e, gestureState) => {
-      if (disabled) {
-        return;
-      }
-
-      _setCurrentValue(_getValue(gestureState));
-      _fireChangeEvent("onSlidingComplete");
+  const [panResponder, setPanResponder] = useState(null);
+  const valueRef = useRef(value);
+  valueRef.current = value;
+  useEffect(() => {
+    if (containerSize.width != 0 && thumbSize.width != 0) {
+      setPanResponder(
+        PanResponder.create({
+          onStartShouldSetPanResponder: _handleStartShouldSetPanResponder,
+          onMoveShouldSetPanResponder: _handleMoveShouldSetPanResponder,
+          onPanResponderGrant: _handlePanResponderGrant,
+          onPanResponderMove: _handlePanResponderMove,
+          onPanResponderRelease: _handlePanResponderEnd,
+          onPanResponderTerminationRequest: _handlePanResponderRequestEnd,
+          onPanResponderTerminate: _handlePanResponderEnd
+        })
+      );
     }
-  });
-
-  const _getRatio = value => (value - minimumValue) / (maximumValue - minimumValue);
-
-  const _getThumbLeft = value => _getRatio(value) * (containerSize.width - thumbSize.width);
-
-  const _getCurrentVal = () => position.__getValue();
-
-  const _setCurrentValue = value => position.setValue(value);
-
-  const _fireChangeEvent = event => {
-    if (props[event]) {
-      props[event](_getCurrentVal());
-    }
-  };
-  const _getValue = gestureState => {
+  }, [containerSize, thumbSize]);
+  const _getValue = (gestureState: any) => {
     const length = containerSize.width - thumbSize.width;
-    const thumbLeft = _previousLeft + gestureState.dx;
+    const thumbLeft = this._previousLeft + gestureState.dx;
 
-    const ratio = thumbLeft / length;
+    const nonRtlRatio = thumbLeft / length;
+    const ratio = I18nManager.isRTL ? 1 - nonRtlRatio : nonRtlRatio;
 
     if (step) {
       return Math.max(minimumValue, Math.min(maximumValue, minimumValue + Math.round((ratio * (maximumValue - minimumValue)) / step) * step));
     }
     return Math.max(minimumValue, Math.min(maximumValue, ratio * (maximumValue - minimumValue) + minimumValue));
   };
-  const _measureContainer = x => {
-    _handleMeasure("containerSize", x);
-  };
-  // track size
-  const _measureTrack = x => {
-    _handleMeasure("trackSize", x);
-  };
-  // thumb size
-  const _measureThumb = x => {
-    _handleMeasure("thumbSize", x);
-  };
-  const _handleMeasure = (name, x) => {
-    const { width, height } = x.nativeEvent.layout;
-    const size = { width, height };
+  const _setCurrentValueAnimated = (value: number) => {
+    const animationConfig = Object.assign({}, DEFAULT_ANIMATION_CONFIGS[animationType], animationConfig, {
+      toValue: value
+    });
 
-    const storeName = `_${name}`;
-    const currentSize = this[storeName];
-    if (currentSize && width === currentSize.width && height === currentSize.height) {
+    Animated[animationType](value, animationConfig).start();
+  };
+  const _setCurrentValue = _value => {
+    setValue(new Animated.Value(_value));
+  };
+  const _getCurrentValue = () => valueRef.current.__getValue();
+  const _getTouchOverflowSize = () => {
+    var size = {};
+
+    size.width = Math.max(0, thumbTouchSize.width - thumbSize.width);
+    size.height = Math.max(0, thumbTouchSize.height - containerSize.height);
+
+    return size;
+  };
+  const _getRatio = (__value: number) => (__value - minimumValue) / (maximumValue - minimumValue);
+
+  const _getThumbLeft = (__value: number) => {
+    const nonRtlRatio = _getRatio(__value);
+    const ratio = I18nManager.isRTL ? 1 - nonRtlRatio : nonRtlRatio;
+    return ratio * (containerSize.width - thumbSize.width);
+  };
+
+  const _getThumbTouchRect = () => {
+    const touchOverflowSize = _getTouchOverflowSize();
+    return new Rect(
+      -20 + touchOverflowSize.width / 2 + _getThumbLeft(_getCurrentValue()) + (thumbSize.width - thumbTouchSize.width) / 2,
+      touchOverflowSize.height / 2 + (containerSize.height - thumbTouchSize.height) / 2,
+      thumbTouchSize.width,
+      thumbTouchSize.height
+    );
+  };
+  const _thumbHitTest = (e: Object) => {
+    const nativeEvent = e.nativeEvent;
+    const thumbTouchRect = _getThumbTouchRect();
+    return thumbTouchRect.containsPoint(nativeEvent.locationX, nativeEvent.locationY);
+  };
+  const _handleStartShouldSetPanResponder = (e: Object /* gestureState: Object */): boolean => {
+    return _thumbHitTest(e);
+  };
+  const _handlePanResponderRequestEnd = (e: Object, gestureState: Object) => {
+    // Should we allow another component to take over this pan?
+    return false;
+  };
+  const _handleMoveShouldSetPanResponder = (/* e: Object, gestureState: Object */): boolean => {
+    // Should we become active when the user moves a touch over the thumb?
+    return false;
+  };
+  ///end
+  const renderIcon = () => {
+    return icon;
+  };
+  const _handlePanResponderGrant = (/* e: Object, gestureState: Object */) => {
+    this._previousLeft = _getThumbLeft(_getCurrentValue());
+
+    onStart && onStart(_getCurrentValue());
+    //this._fireChangeEvent("onSlidingStart");
+  };
+
+  const _handlePanResponderMove = (e: Object, gestureState: Object) => {
+    if (disabled) {
       return;
     }
-    this[storeName] = size; // initialize a new var with the current sizes
-
-    if (this._containerSize && this._trackSize && this._thumbSize) {
-      setContainerSize(this._containerSize);
-      setTrackSize(this._trackSize);
-      setThumbSize(this._thumbSize);
-      setMeasured(true);
-    }
+    _setCurrentValue(_getValue(gestureState));
+    onChange && onChange(_getCurrentValue());
+    //this._fireChangeEvent("onValueChange");
   };
-  const thumbLeft = position.interpolate({
+
+  const _handlePanResponderEnd = (e: Object, gestureState: Object) => {
+    if (disabled) {
+      return;
+    }
+    onComplete && onComplete(_getCurrentValue());
+  };
+
+  const _measureContainer = (event: Object) => {
+    const { width, height } = event.nativeEvent.layout;
+    setContainerSize({ width: width, height: height });
+  };
+
+  const _measureThumb = (event: Object) => {
+    const { width, height } = event.nativeEvent.layout;
+    setThumbSize({ width: width, height: height });
+  };
+
+  const _renderDebugThumbTouchRect = thumbLeft => {
+    const thumbTouchRect = _getThumbTouchRect();
+    const positionStyle = {
+      left: thumbTouchRect.x,
+      top: thumbTouchRect.y,
+      width: thumbTouchRect.width,
+      height: thumbTouchRect.height
+    };
+
+    return <Animated.View style={[styles.debugThumbTouchArea, positionStyle]} pointerEvents="none" />;
+  };
+
+  const thumbLeft = value.interpolate({
     inputRange: [minimumValue, maximumValue],
-    outputRange: [0, containerSize.width - thumbSize.width]
+    outputRange: I18nManager.isRTL ? [0, -(containerSize.width - thumbSize.width)] : [0, containerSize.width - thumbSize.width]
+    // extrapolate: 'clamp',
   });
 
-  const minimumTrackWidth = position.interpolate({
+  const minimumTrackWidth = value.interpolate({
     inputRange: [minimumValue, maximumValue],
     outputRange: [0, containerSize.width - thumbSize.width]
+    // extrapolate: 'clamp',
   });
-
-  let visibleStyle: any = {};
-  if (!measured) visibleStyle.opacity = 0;
-
   const minimumTrackStyle = {
     position: "absolute",
     width: Animated.add(minimumTrackWidth, thumbSize.width / 2),
-    backgroundColor: activeColor || AzirTheme.COLORS.PRIMARY,
-    ...visibleStyle
+    backgroundColor: getColorByName(progressTrackColor, theme.COLORS)
   };
 
-  const containerStyles = [styles.container, styles];
+  //end
   return (
-    <View style={containerStyles} onLayout={_measureContainer}>
-      <View renderToHardwareTextureAndroid style={[styles.track, trackStyle]} onLayout={_measureTrack} />
-      <Animated.View renderToHardwareTextureAndroid style={[styles.track, minimumTrackStyle]} />
+    <View {...rest} style={[{ height: __thumbSize }, styles.container, style]} onLayout={_measureContainer}>
+      <View
+        style={[
+          { backgroundColor: getColorByName(trackColor, theme.COLORS), height: _trackSize ? _trackSize : theme.SIZES.TRACK_SIZE, borderRadius: theme.SIZES.TRACK_SIZE / 2 },
+          trackStyle
+        ]}
+        renderToHardwareTextureAndroid
+      />
       <Animated.View
         renderToHardwareTextureAndroid
+        style={[{ height: _trackSize ? _trackSize : theme.SIZES.TRACK_SIZE, borderRadius: theme.SIZES.TRACK_SIZE / 2 }, trackStyle, minimumTrackStyle]}
+      />
+      <Animated.View
+        onLayout={_measureThumb}
+        renderToHardwareTextureAndroid
         style={[
+          {
+            justifyContent: "center",
+            alignItems: "center",
+            width: __thumbSize ? __thumbSize : theme.SIZES.THUMB_SIZE,
+            height: __thumbSize ? __thumbSize : theme.SIZES.THUMB_SIZE,
+            borderRadius: __thumbSize ? __thumbSize : theme.SIZES.THUMB_SIZE / 2
+          },
+          { backgroundColor: getColorByName(thumbColor, theme.COLORS) },
           styles.thumb,
           thumbStyle,
-          disabled && styles.disabled,
           {
-            transform: [{ translateX: thumbLeft }, { translateY: 0 }],
-            ...visibleStyle
+            transform: [{ translateX: thumbLeft }, { translateY: 0 }]
           }
         ]}
-        {..._panResponder.panHandlers}
-        onLayout={_measureThumb}
-      />
+      >
+        {icon && renderIcon()}
+      </Animated.View>
+      {panResponder && <View renderToHardwareTextureAndroid style={[styles.touchArea]} {...panResponder.panHandlers}></View>}
     </View>
   );
 };
 
+//Props Type ? for optional props
 type Props = {
-  activeColor: string;
-  value: number;
-  disabled: boolean;
-  step: number;
-  minimumValue: number;
-  maximumValue: number;
+  styles: any;
+  style: any;
   trackStyle: any;
   thumbStyle: any;
-  styles: any;
+  value: number;
+  progressTrackColor: string;
+  trackColor: string;
+  thumbColor: string;
+  minimumValue: number;
+  maximumValue: number;
+  thumbTouchSize: any;
+  icon: boolean;
+  animationType: string;
+  disabled: boolean;
+  step: number;
+  trackSize: number;
+  thumbSize: number;
+  onStart: any;
+  onChange: any;
+  onComplete: any;
 };
-LcSlider.defaultProps = { value: 0, disabled: false, step: 0, minimumValue: 0, maximumValue: 100, trackStyle: {}, thumbStyle: {} };
+//default props 4
+AzirSlider.defaultProps = {
+  progressTrackColor: "theme",
+  trackColor: "#b3b3b3",
+  thumbColor: "theme",
+  value: 0,
+  trackSize: 3,
+  thumbSize: null,
+  minimumValue: 0,
+  maximumValue: 1,
+  thumbTouchSize: null,
+  icon: null,
+  animationType: "timing",
+  disabled: false,
+  step: 0
+};
 const styles = theme =>
   StyleSheet.create({
     container: {
-      height: 40,
+      //height: 40,
       justifyContent: "center"
     },
-    track: {
-      height: theme.SIZES.TRACK_SIZE,
-      width: "100%",
-      borderRadius: theme.SIZES.TRACK_SIZE / 2,
-      position: "absolute",
-      backgroundColor: theme.COLORS.GREY
-    },
     thumb: {
-      width: theme.SIZES.THUMB_SIZE,
-      height: theme.SIZES.THUMB_SIZE,
-      borderRadius: theme.SIZES.THUMB_SIZE / 2,
-      borderWidth: 2,
-      borderColor: theme.COLORS.PRIMARY,
-      backgroundColor: theme.COLORS.WHITE
+      position: "absolute"
     },
-    disabled: {
-      backgroundColor: theme.COLORS.MUTED
+    touchArea: {
+      position: "absolute",
+      backgroundColor: "transparent",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0
     },
-    primary: {
-      backgroundColor: theme.COLORS.PRIMARY
-    },
-    theme: {
-      backgroundColor: theme.COLORS.THEME
-    },
-    info: {
-      backgroundColor: theme.COLORS.INFO
-    },
-    error: {
-      backgroundColor: theme.COLORS.ERROR
-    },
-    warning: {
-      backgroundColor: theme.COLORS.WARNING
-    },
-    success: {
-      backgroundColor: theme.COLORS.SUCCESS
+    debugThumbTouchArea: {
+      position: "absolute",
+      backgroundColor: "green",
+      opacity: 0.5
     }
   });
-export default withAzir(LcSlider, styles);
+
+export default withAzir(AzirSlider, styles);

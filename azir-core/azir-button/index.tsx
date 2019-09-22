@@ -3,27 +3,25 @@ import { ActivityIndicator, StyleSheet, TouchableOpacity, TouchableHighlight, Te
 import AzirTheme, { withAzir, colorsProps, getColorByName } from "azir-theme";
 
 const renderContent = props => {
-
-  const {theme, outline, children, textColor, textTransform, textStyle, icon, loading, loadingSize, loadingColor, styles } = props;
+  const { theme, outline, children, textColor, textTransform, textStyle, icon, loading, loadingSize, loadingColor, styles } = props;
   let content = children;
   const _textColor = textColor == "unknown" && outline ? "primary" : textColor == "unknown" ? "white" : textColor;
   const textStyles = [];
-  textStyles.push(styles.text)
+  textStyles.push(styles.text);
   textTransform && textStyles.push({ textTransform: textTransform });
-  textStyles.push({ color: getColorByName(_textColor,theme.COLORS) });
+  textStyles.push({ color: getColorByName(_textColor, theme.COLORS) });
   textStyle && textStyles.push(textStyle); //add user custom style
   const isString = children && typeof children === "string"; //apply text transform
   if (loading) {
-    return <ActivityIndicator size={loadingSize} color={getColorByName(loadingColor,theme.COLORS)} />;
+    return <ActivityIndicator size={loadingSize} color={getColorByName(loadingColor, theme.COLORS)} />;
   }
   if (icon) {
-    const flexDirection = AzirTheme.SETTINGS.RTL ? "row-reverse" : "row";
     return (
       <View
         style={{
-          flexDirection: flexDirection,
+          flexDirection: "row",
           justifyContent: "space-between",
-          alignItems: "center"
+          alignItems: "flex-start"
         }}
       >
         {isString ? <Text style={textStyles}>{content as string}</Text> : content}
@@ -48,12 +46,12 @@ const AzirButton: React.FC<Props> = props => {
     styles,
     color,
     outline,
-    borderColor : _borderColor,
-    borderWidth : _borderWidth,
+    borderColor: _borderColor,
+    borderWidth: _borderWidth,
     opacity: _opacity,
     disabled,
     radius,
-  
+
     shadow,
     ...rest
   } = props;
@@ -65,22 +63,22 @@ const AzirButton: React.FC<Props> = props => {
 
   const containerStyles = [];
   containerStyles.push(styles.defaultButton);
-  !outline && color && containerStyles.push({ backgroundColor: getColorByName(color,theme.COLORS) });
+  !outline && color && containerStyles.push({ backgroundColor: getColorByName(color, theme.COLORS) });
   radius && containerStyles.push({ borderRadius: radius });
   shadow && containerStyles.push(styles.shadow);
   if (borderWidth != 0) {
     containerStyles.push({
       borderWidth: borderWidth,
-      borderColor: getColorByName(borderColor,theme.COLORS)
+      borderColor: getColorByName(borderColor, theme.COLORS)
     });
   }
-  if (outline && borderWidth == 0 ) {
+  if (outline && borderWidth == 0) {
     containerStyles.push({
       borderWidth: 1,
-      borderColor: getColorByName(borderColor,theme.COLORS)
+      borderColor: getColorByName(borderColor, theme.COLORS)
     });
   }
- 
+
   containerStyle && containerStyles.push(containerStyle); //add user custom style
 
   if (type === "TouchableHighlight") {
@@ -89,7 +87,7 @@ const AzirButton: React.FC<Props> = props => {
     underlayStyle && underlayStyles.push(underlayStyle);
     return (
       <TouchableHighlight
-        underlayColor={getColorByName(underlayColor,theme.COLORS)}
+        underlayColor={getColorByName(underlayColor, theme.COLORS)}
         disabled={disabled}
         activeOpacity={opacity}
         style={pressed ? underlayStyles : containerStyles}
