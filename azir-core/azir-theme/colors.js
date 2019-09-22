@@ -6,7 +6,7 @@ export const SOCIAL = {
 
 export const THEME = {
   THEME: "#B23AFC",
-  PRIMARY: "#B23AFC",
+  PRIMARY: "#00c9db",
   INFO: "#1232FF",
   ERROR: "#FE2472",
   WARNING: "#FF9C09",
