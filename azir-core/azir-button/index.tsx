@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ActivityIndicator, StyleSheet, TouchableOpacity, TouchableHighlight, Text, View } from "react-native";
+import { I18nManager, ActivityIndicator, StyleSheet, TouchableOpacity, TouchableHighlight, Text, View } from "react-native";
 import AzirTheme, { withAzir, colorsProps, getColorByName } from "azir-theme";
 
 const renderContent = props => {
@@ -160,7 +160,9 @@ const styles = theme =>
       justifyContent: "center"
     },
     text: {
-      fontSize: theme.SIZES.FONT
+      fontSize: theme.SIZES.FONT,
+      paddingLeft: I18nManager.isRTL ? 20 : 0,
+      paddingRight: I18nManager.isRTL ? 0 : 20
     },
     ...colorsProps,
     androidShadow: {

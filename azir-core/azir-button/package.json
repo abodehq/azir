@@ -1,6 +1,6 @@
 {
   "name": "azir-button",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "An advance button component that should render nicely on any platform. Supports a great level of customization.",
   "main": "index.tsx",
   "dependencies": {
