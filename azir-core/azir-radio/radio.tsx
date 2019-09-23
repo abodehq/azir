@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
-import AzirTheme, { withAzir, colorsProps,getColorByName } from "azir-theme";
+import { I18nManager, Text, StyleSheet, View, TouchableOpacity } from "react-native";
+import AzirTheme, { withAzir, colorsProps, getColorByName } from "azir-theme";
 import Icon from "azir-icon";
 const spaceAround: Function = direction => {
   switch (direction) {
-    case "row-reverse":
-      return { marginRight: 10 };
+    case "row":
+      return I18nManager.isRTL ? { marginLeft: 10 } : { marginLeft: 10 };
     case "column":
       return { marginTop: 10 };
     case "column-reverse":
@@ -14,10 +14,29 @@ const spaceAround: Function = direction => {
       return { marginLeft: 10 };
   }
 };
+
 const renderContent: Function = (props, checked) => {
-  const {theme, size :_size, styles, iconStyle, iconActive, iconInActive, iconActiveColor, iconInActiveColor, iconDisabledColor, disabled, hideInActiveIcon, hideIconBorder, type } = props;
-  const size = _size? _size :theme.SIZES.RADIO_SIZE;
-  let iconColor = disabled ? getColorByName(iconDisabledColor,theme.COLORS) : checked ? getColorByName(iconActiveColor,theme.COLORS) : getColorByName(iconInActiveColor,theme.COLORS);
+  const {
+    theme,
+    size: _size,
+    styles,
+    iconStyle,
+    iconActive,
+    iconInActive,
+    iconActiveColor,
+    iconInActiveColor,
+    iconDisabledColor,
+    disabled,
+    hideInActiveIcon,
+    hideIconBorder,
+    type
+  } = props;
+  const size = _size ? _size : theme.SIZES.RADIO_SIZE;
+  let iconColor = disabled
+    ? getColorByName(iconDisabledColor, theme.COLORS)
+    : checked
+    ? getColorByName(iconActiveColor, theme.COLORS)
+    : getColorByName(iconInActiveColor, theme.COLORS);
   let icon = iconActive
     ? checked
       ? iconActive
@@ -53,11 +72,11 @@ const renderContent: Function = (props, checked) => {
   return <View style={iconStyles}>{!hideInActiveIcon || checked ? <Icon icon={icon} color={iconColor} size={size - size * 0.3} /> : null}</View>;
 };
 const renderLabel: Function = (props, checked) => {
-  const {theme, textActiveColor, textInActiveColor, textDisabledColor, children, disabled, flexDirection, textStyle, styles } = props;
+  const { theme, textActiveColor, textInActiveColor, textDisabledColor, children, disabled, flexDirection, textStyle, styles } = props;
   const radioContent = children;
   const labelStyles = [styles.textStyles, flexDirection && spaceAround(flexDirection), textStyle];
-  checked ? labelStyles.push({ color: getColorByName(textActiveColor,theme.COLORS)  }) : labelStyles.push({ color: getColorByName(textInActiveColor,theme.COLORS) });
-  disabled && labelStyles.push(styles.disabledLabel, { color: getColorByName(textDisabledColor,theme.COLORS) });
+  checked ? labelStyles.push({ color: getColorByName(textActiveColor, theme.COLORS) }) : labelStyles.push({ color: getColorByName(textInActiveColor, theme.COLORS) });
+  disabled && labelStyles.push(styles.disabledLabel, { color: getColorByName(textDisabledColor, theme.COLORS) });
   const isString = children && typeof children === "string";
 
   if (radioContent) {
@@ -117,7 +136,7 @@ type Props = {
 AzirRadio.defaultProps = {
   size: null,
   disabled: false,
-  flexDirection: null,
+  flexDirection: "row",
   checked: false,
   iconActiveColor: "theme",
   iconInActiveColor: "black",
@@ -134,7 +153,7 @@ AzirRadio.defaultProps = {
 const styles = theme =>
   StyleSheet.create({
     container: {
-      flexDirection:theme.SETTINGS.RTL ? "row-reverse":  "row",
+      //flexDirection: "row",
       alignItems: "center",
       justifyContent: "flex-start"
     },

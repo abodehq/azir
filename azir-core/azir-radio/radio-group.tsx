@@ -70,7 +70,7 @@ AzirRadioGroup.defaultProps = {
 const styles = theme =>
   StyleSheet.create({
     container: {
-      flexDirection: theme.SETTINGS.RTL ? "row-reverse" : "row",
+      flexDirection: "row",
       alignItems: "center",
       flexWrap: "wrap",
       justifyContent: "flex-start"

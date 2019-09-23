@@ -1,6 +1,6 @@
 {
   "name": "azir-radio",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An advance Radio, Radiogroup, checkbox, checkbox group, switch components that should render nicely on any platform. Supports a great level of customization.",
   "main": "index.tsx",
   "dependencies": {
