@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import AzirTheme, { withAzir } from "azir-theme";
-import { Text, View, StyleSheet } from "react-native";
+import { I18nManager, Text, View, StyleSheet } from "react-native";
 import { useScreenDimensions } from "azir-helpers";
 import { reset } from "expo/build/AR";
 
@@ -19,7 +19,7 @@ const LcViewMoreText: React.FC<Props> = props => {
     renderTruncatedFooter,
     ...rest
   } = props;
-
+  const rtlTextStyle = {}; //textAlign: I18nManager.isRTL ? "right" : "left"
   let trimmedTextHeight: number = null;
   let fullTextHeight: number = null;
   const __numberOfLines = _numberOfLines ? _numberOfLines : theme.SIZES.NUMBER_OF_LINES;
@@ -54,7 +54,7 @@ const LcViewMoreText: React.FC<Props> = props => {
   };
 
   const renderViewMore = () => {
-    const textStyles = [styles.text];
+    const textStyles = [rtlTextStyle];
     textStyles.push(styles.footerText);
     viewMoreStyle && textStyles.push(viewMoreStyle);
     return (
@@ -64,7 +64,7 @@ const LcViewMoreText: React.FC<Props> = props => {
     );
   };
   const renderViewLess = () => {
-    const textStyles = [styles.text];
+    const textStyles = [rtlTextStyle];
     textStyles.push(styles.footerText);
     viewLessStyle && textStyles.push(viewLessStyle);
     return (
@@ -113,7 +113,7 @@ const LcViewMoreText: React.FC<Props> = props => {
   };
 
   return (
-    <View style={getWrapperStyle()}>
+    <View>
       <View onLayout={onLayoutTrimmedText}>
         <Text style={[styles.text, props.textStyle]} numberOfLines={numberOfLines} {...rest}>
           {children}
@@ -148,7 +148,7 @@ LcViewMoreText.defaultProps = {
 const styles = theme =>
   StyleSheet.create({
     text: {
-      textAlign: theme.SETTINGS.RTL ? "right" : "left"
+      // textAlign: I18nManager.isRTL ? "right" : "left"
     },
     fullTextWrapper: {
       opacity: 0,
