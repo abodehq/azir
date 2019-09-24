@@ -46,7 +46,7 @@ export function withAzir(Component, styles) {
 export const AzirProvider: React.FC<Props> = props => {
   const { theme, children } = props;
 
-  const {SETTINGS:CUSTOM_SETTINGS, STRINGS: CUSTOM_STRINGS, COLORS: CUSTOM_COLORS, SIZES: CUSTOM_SIZES, customTheme } = theme;
+  const { SETTINGS: CUSTOM_SETTINGS, STRINGS: CUSTOM_STRINGS, COLORS: CUSTOM_COLORS, SIZES: CUSTOM_SIZES, customTheme } = theme;
 
   const providerTheme = {
     SETTINGS: { ...AzirTheme.SETTINGS, ...CUSTOM_SETTINGS },
@@ -66,27 +66,31 @@ type Props = {
 //default props 4
 AzirProvider.defaultProps = { children: null, theme: {} };
 
-export const colorsProps =  {
+export const colorsProps = {
   shadow: {
     shadowColor: LC_COLORS.BLOCK,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: LC_SIZES.OPACITY,
     shadowRadius: LC_SIZES.BUTTON_SHADOW_RADIUS,
     elevation: LC_SIZES.ANDROID_ELEVATION
-  },
+  }
 };
 
-export const getColorByName = (color,COLORS) => {
+export const getColorByName = (color, COLORS) => {
   return COLORS[color.toUpperCase()] ? COLORS[color.toUpperCase()] : color;
 };
 
 const Sizes = {
+  xtiny: 10,
+  tiny: 15,
+  xxsmall: 20,
+  xsmall: 30,
   small: 50,
   medium: 75,
+  xmedium: 85,
   large: 100,
   xlarge: 150
 };
 export const getSize = size => {
   return Sizes[size] ? Sizes[size] : typeof size === "number" ? size : Sizes["small"];
 };
- 

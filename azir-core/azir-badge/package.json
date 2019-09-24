@@ -1,9 +1,11 @@
 {
-  "name": "azir-theme",
-  "version": "1.0.5",
-  "description": "A powerfull tool to customize React native app theme, components,style,....",
+  "name": "azir-badge",
+  "version": "1.0.0",
+  "description": "An advance badge component that should render nicely on any platform. Supports a great level of customization.",
   "main": "index.tsx",
-  "dependencies": {},
+  "dependencies": {
+    "azir-theme": "^1.x.x"
+  },
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
@@ -26,13 +28,13 @@
     "android",
     "ui",
     "expo",
-    "blue eye",
-    "Theme",
-    "framework",
-    "advance theme",
-    "native theme",
-    "react native theme",
-    "expo theme"
+    "badge",
+    "advance badge",
+    "native badge",
+    "blue eye badge",
+    "react native badge",
+    "expo badge",
+    "badge"
   ],
   "author": "Abed Allateef Qaisi abed_q@hotmail.com",
   "license": "MIT",
