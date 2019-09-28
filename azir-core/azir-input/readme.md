@@ -1,8 +1,10 @@
-# Azir Framwork :  [https://azir.io/docs](https://azir.io/docs)
+# Azir Framwork : [https://azir.io/docs](https://azir.io/docs)
 
 # Input
 
 An advance Input component that should render nicely on any platform. Supports a great level of customization.
+
+> for version 1.0.3 and above now you can use startIcon and EndIcon instead of Icon props.
 
 <p align="center">
  <img src="https://i.imgur.com/xK5hvyq.jpg" />
@@ -31,7 +33,7 @@ import Input from "azir-input";
 import {SolidIcons} from "azir-icon";
 ---
 <Input help="error!!" label="Nice Input ;)" placeholder="Email"
-icon={SolidIcons.boxOpen} iconSize={60} iconColor="error"  />
+endIcon={SolidIcons.boxOpen} endIconSize={60} endIconColor="error"  />
 ```
 
 <img src="https://i.imgur.com/n63tCoP.jpg" alt="Basic" style="width:250px" />
@@ -45,7 +47,7 @@ import AzirTheme from "azir-theme";
 ---
 <View style={ { width: "80%" } }>
 <Input
-    icon={<Icon icon={SolidIcons.at} size={22} color={AzirTheme.COLORS.SUCCESS} />}
+    endIcon={<Icon icon={SolidIcons.at} size={22} color={AzirTheme.COLORS.SUCCESS} />}
     inputStyle={ { color: "green" } }
     help="خطأ !!"
     label="البريد الإلكتروني : "
@@ -103,7 +105,7 @@ import Icon, {SolidIcons} from "azir-icon";
     paddingHorizontal: 0,
     backgroundColor: "transparent"
     } }
-    icon={<Icon style={ { padding: 13 } } icon={SolidIcons.at} size={24} color={"#2196f3"}></Icon>}
+    endIcon={<Icon style={ { padding: 13 } } icon={SolidIcons.at} size={24} color={"#2196f3"}></Icon>}
 ></Input>
 ```
 
@@ -130,7 +132,7 @@ import Icon, {SolidIcons} from "azir-icon";
     paddingHorizontal: 0,
     backgroundColor: "#363a4e"
     } }
-    icon={<Icon style={ { padding: 13 } } icon={SolidIcons.arrowRight} size={24} color={"#BFD2FF"}>
+    endIcon={<Icon style={ { padding: 13 } } icon={SolidIcons.arrowRight} size={24} color={"#BFD2FF"}>
     </Icon>}>
 </Input>
 ```
@@ -140,9 +142,12 @@ import Icon, {SolidIcons} from "azir-icon";
 ### Props
 
 - [`type`](input#type)
-- [`icon`](input#icon)
-- [`iconSize`](input#iconsize)
-- [`iconColor`](input#iconcolor)
+- [`endIcon`](input#endicon)
+- [`endIconSize`](input#endiconsize)
+- [`endIconColor`](input#endiconcolor)
+- [`startIcon`](input#starticon)
+- [`startIconSize`](input#starticonsize)
+- [`startIconColor`](input#starticoncolor)
 - [`password`](input#password)
 - [`disabled`](input#disabled)
 - [`borderless`](input#borderless)
@@ -172,25 +177,49 @@ Determines which keyboard to open, e.g.numeric.
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------- |
 | enum('default', 'email-address', 'numeric', 'phone-pad', 'ascii-capable', 'numbers-and-punctuation', 'url', 'number-pad', 'name-phone-pad', 'decimal-pad', 'twitter', 'web-search', 'visible-password') | No       | default |
 
-### `icon`
+### `endIcon`
 
-Set the Icon of the input Text, can be string or jsx element.
+Set the end Icon of the input Text, can be string or jsx element.
 
 | Type                | Required | Default |
 | ------------------- | -------- | ------- |
 | string, JSX element | No       | Not Set |
 
-### `iconSize`
+### `endIconSize`
 
-Set the Icon Size of the input Text.
+Set the end Icon Size of the input Text.
 
 | Type   | Required | Default |
 | ------ | -------- | ------- |
 | number | No       | Not Set |
 
-### `iconColor`
+### `endIconColor`
 
-Set the Icon Color of the input Text.
+Set the end Icon Color of the input Text.
+
+| Type                                       | Required | Default |
+| ------------------------------------------ | -------- | ------- |
+| [azir-color](../../guides/color-reference) | No       | theme   |
+
+### `startIcon`
+
+Set the start Icon of the input Text, can be string or jsx element.
+
+| Type                | Required | Default |
+| ------------------- | -------- | ------- |
+| string, JSX element | No       | Not Set |
+
+### `startIconSize`
+
+Set the start Icon Size of the input Text.
+
+| Type   | Required | Default |
+| ------ | -------- | ------- |
+| number | No       | Not Set |
+
+### `startIconColor`
+
+Set the start Icon Color of the input Text.
 
 | Type                                       | Required | Default |
 | ------------------------------------------ | -------- | ------- |
@@ -250,7 +279,7 @@ Input Text color
 
 | Type                                       | Required | Default |
 | ------------------------------------------ | -------- | ------- |
-| [azir-color](../../guides/color-reference) | No       | theme   |
+| [azir-color](../../guides/color-reference) | No       | black   |
 
 ### `selectionColor`
 

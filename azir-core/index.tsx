@@ -1,5 +1,11 @@
 import AzirTheme from "azir-theme";
-import ViewMoreText from "azir-view-more-text";
 import Button from "azir-button";
+import Input from "azir-input";
+import Hr from "azir-hr";
+import Icon from "azir-icon";
+import Avatar from "azir-avatar";
+import Badge from "azir-badge";
+import Text from "azir-text";
+import ViewMoreText from "azir-view-more-text";
 import { Switch, Radio, CheckBox, RadioGroup, CheckboxGroup } from "azir-radio";
-export { AzirTheme, ViewMoreText, Button, CheckBox, CheckboxGroup, Radio, RadioGroup };
+export { AzirTheme, Input, Hr, Icon, Avatar, Badge, Button, Text, CheckBox, CheckboxGroup, Radio, RadioGroup, ViewMoreText };

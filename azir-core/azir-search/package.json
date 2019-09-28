@@ -1,10 +1,12 @@
 {
-  "name": "azir-icon",
-  "version": "1.0.4",
-  "description": "A great component that give you the ability you to create your own custom icons ",
+  "name": "azir-search",
+  "version": "1.0.0",
+  "description": "An advance search component that should render nicely on any platform. Supports a great level of customization.",
   "main": "index.tsx",
   "dependencies": {
-    "azir-theme": "^1.x.x"
+    "azir-theme": "^1.x.x",
+    "azir-icon": "^1.x.x",
+    "azir-input": "^1.x.x"
   },
   "peerDependencies": {
     "react": "*",
@@ -28,16 +30,13 @@
     "android",
     "ui",
     "expo",
-    "icon",
-    "advance icon",
-    "native icon",
-    "blue eye icon",
-    "react native icon",
-    "expo icon",
-    "font",
-    "font awesome",
-    "content",
-    "icon button"
+    "search",
+    "advance search",
+    "native search",
+    "blue eye search",
+    "react native search",
+    "expo search",
+    "search"
   ],
   "author": "Abed Allateef Qaisi abed_q@hotmail.com",
   "license": "MIT",

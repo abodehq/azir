@@ -1,4 +1,4 @@
-# Azir Framwork list :  [https://azir.io/docs](https://azir.io/docs)
+# Azir Framwork list : [https://azir.io/docs](https://azir.io/docs)
 
 # Icon
 
@@ -54,13 +54,13 @@ Font Awesome Icons provide also three types of free icons set . you can download
 
 > you can use one of the online font icons generator like [Fontello](https://fontello.com/) which we are using in our custom font example.
 
-| Type                     | Font Name(Required) | Download                                                                               | Size   |
-| ------------------------ | ------------------- | -------------------------------------------------------------------------------------- | ------ |
-| AzirIcons (**REQUIRED**) | azir-font           | [azir-font](https://drive.google.com/open?id=10f_C_DA3azuyF6myslkFQWF4jpxhFy5Z)        | 12 KB  |
-| RegularIcons             | fa-regular-400      | [fa-regular-400](https://drive.google.com/open?id=1yq_sJ5le5S1S06msvaO6W16-9Oo7dXfa)   | 34 KB  |
-| SolidIcons               | fa-solid-900        | [fa-solid-900](https://drive.google.com/open?id=18vQUn80hrR3lxTvB1toRE5Kf0pE37eif)     | 188 KB |
-| BrandIcons               | fa-brands-400       | [fa-brands-400](https://drive.google.com/open?id=1qJQ0t9ZchUaikh3TYeuIjGQgS3wrjxEW)    | 127KB  |
-| Custom Font              | custom-font-icon    | [custom-font-icon](https://drive.google.com/open?id=18reeFawb37lZrYh-yPNwqNW75ldhdSrc) | 10 KB  |
+| Type                     | Font Name(Required) | Download                                                       | Size   |
+| ------------------------ | ------------------- | -------------------------------------------------------------- | ------ |
+| AzirIcons (**REQUIRED**) | azir-font           | [azir-font](https://azir.io/fonts/azir-font.ttf)               | 14 KB  |
+| RegularIcons             | fa-regular-400      | [fa-regular-400](https://azir.io/fonts/fa-regular-400.ttf)     | 34 KB  |
+| SolidIcons               | fa-solid-900        | [fa-solid-900](https://azir.io/fonts/fa-solid-900.ttf)         | 188 KB |
+| BrandIcons               | fa-brands-400       | [fa-brands-400](https://azir.io/fonts/fa-brands-400.ttf)       | 127KB  |
+| Custom Font              | custom-font-icon    | [custom-font-icon](https://azir.io/fonts/custom-font-icon.ttf) | 10 KB  |
 
 > next step is to load these fonts into your app , check below example if you are using expo .
 

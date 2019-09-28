@@ -32,7 +32,11 @@ const AzirIcons = {
   switchBoxOff: "\uE801|azir",
   switchBoxOn: "\uE804|azir",
   switchOff1: "\uE803|azir",
-  switchOn1: "\uE802|azir"
+  switchOn1: "\uE802|azir",
+  ArrowLeft: "\uE80D|azir",
+  ArrowRight: "\uE811|azir",
+  Search: "\uE805|azir",
+  SearchClear: "\uE80E|azir"
 };
 const SolidIcons = {
   //_fontFamily: Platform.OS === "ios" ? "FontAwesome5FreeSolid" : "fa-solid-900",

@@ -1,17 +1,42 @@
 {
   "name": "azir-helpers",
   "version": "1.0.0",
-  "description": "",
+  "description": "Contains Helpers functions for some packages.",
   "main": "index.tsx",
-  "dependencies": {
-    "azir-theme": "1.0.0"
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abodehq/azir.git"
+  },
   "keywords": [
-    "test"
+    "react-native",
+    "react-component",
+    "react-native-component",
+    "react",
+    "react native",
+    "mobile",
+    "ios",
+    "android",
+    "ui",
+    "expo",
+    "Helper",
+    "advance Helper",
+    "native Helper",
+    "blue eye Helper",
+    "react native Helper",
+    "expo Helper"
   ],
-  "author": "abed_q@hotmail.com",
-  "license": "ISC"
+  "author": "Abed Allateef Qaisi abed_q@hotmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abodehq/azir/issues"
+  },
+  "homepage": "https://azir.io/"
 }

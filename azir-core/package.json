@@ -4,7 +4,14 @@
   "description": "",
   "main": "index.tsx",
   "dependencies": {
+    "azir-input": "1.x",
+    "azir-hr": "1.x",
+    "azir-icon": "1.x",
+    "azir-avatar": "1.x",
+    "azir-badge": "1.x",
+    "azir-text": "1.x",
     "azir-theme": "1.x",
+    "azir-helpers": "1.x",
     "azir-button": "1.x",
     "azir-view-more-text": "1.x",
     "azir-radio": "1.x"

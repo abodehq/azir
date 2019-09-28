@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { I18nManager, TextInput, StyleSheet, TouchableOpacity, TouchableHighlight, Text, View } from "react-native";
+import { I18nManager, TextInput, StyleSheet, TouchableOpacity, Text, View } from "react-native";
 import { withAzir, colorsProps, getColorByName } from "azir-theme";
 import Icon from "azir-icon";
-const renderIcon = (theme, icon, iconPosition, iconColor, iconSize, disabled) => {
-  if (typeof icon === "string") return <Icon icon={icon} size={iconSize} color={getColorByName(iconColor, theme.COLORS)} />;
+const renderendIcon = (theme, icon, iconPosition, endIconColor, endIconSize, disabled) => {
+  if (typeof icon === "string") return <Icon icon={icon} size={endIconSize} color={getColorByName(endIconColor, theme.COLORS)} />;
   return icon;
 };
-const renderPassIcon = (theme, renderPasswordIcon, iconPosition, iconColor, iconSize, disabled, password, setPassword) => {
+const renderPassIcon = (theme, renderPasswordIcon, iconPosition, endIconColor, endIconSize, disabled, password, setPassword) => {
   return (
     <TouchableOpacity disabled={disabled} onPress={() => setPassword(!password)}>
       {renderPasswordIcon && renderPasswordIcon(password)}
       {!renderPasswordIcon && (
-        <Icon icon={password ? theme.STRINGS.INPUT_ICON_PASS_ON : theme.STRINGS.INPUT_ICON_PASS_OFF} size={iconSize} color={getColorByName(iconColor, theme.COLORS)} />
+        <Icon icon={password ? theme.STRINGS.INPUT_ICON_PASS_ON : theme.STRINGS.INPUT_ICON_PASS_OFF} size={endIconSize} color={getColorByName(endIconColor, theme.COLORS)} />
       )}
     </TouchableOpacity>
   );
@@ -21,9 +21,12 @@ const AzirInput: React.FC<Props> = props => {
     theme,
     type,
     borderless,
-    icon,
-    iconSize: _iconSize,
-    iconColor,
+    endIcon,
+    endIconSize: _endIconSize,
+    endIconColor,
+    startIcon,
+    startIconSize: _startIconSize,
+    startIconColor,
     color,
     selectionColor,
     bgColor,
@@ -43,6 +46,7 @@ const AzirInput: React.FC<Props> = props => {
     labelStyle,
     helpStyle,
     renderPasswordIcon,
+    inputRef,
     ...rest
   } = props;
 
@@ -50,7 +54,8 @@ const AzirInput: React.FC<Props> = props => {
 
   //Set Default Values based on selected theme
   const iconPosition = _iconPosition ? _iconPosition : I18nManager.isRTL ? "left" : "right";
-  const iconSize = _iconSize ? _iconSize : theme.SIZES.INPUT_ICON_SIZE;
+  const endIconSize = _endIconSize ? _endIconSize : theme.SIZES.INPUT_ICON_SIZE;
+  const startIconSize = _startIconSize ? _startIconSize : theme.SIZES.INPUT_ICON_SIZE;
   const placeholderTextColor = _placeholderTextColor ? _placeholderTextColor : theme.COLORS.GREY;
 
   //end
@@ -64,7 +69,7 @@ const AzirInput: React.FC<Props> = props => {
     labelPosition === "top" || labelPosition === "bottom" ? { width: "100%" } : { flexGrow: 1 },
     style
   ];
-  const inputStyles = [styles.inputView, icon && styles.inputIcon, styles.inputText, color && { color: getColorByName(color, theme.COLORS) }, inputStyle];
+  const inputStyles = [styles.inputView, endIcon && styles.inputIcon, styles.inputText, color && { color: getColorByName(color, theme.COLORS) }, inputStyle];
   const labelContent =
     label && typeof label === "string" ? (
       <Text style={[styles.label, (labelPosition === "left" || labelPosition === "right") && { alignSelf: "center" }, labelStyle]}>{label}</Text>
@@ -74,7 +79,9 @@ const AzirInput: React.FC<Props> = props => {
   const helpContent = help && typeof help === "string" ? <Text style={[styles.helpText, helpStyle]}>{help}</Text> : help;
   const InputContainer = (
     <View style={inputViewStyles}>
+      {renderendIcon(theme, startIcon, iconPosition, startIconColor, startIconSize, disabled)}
       <TextInput
+        ref={inputRef}
         keyboardType={type}
         style={inputStyles}
         editable={!disabled}
@@ -84,8 +91,8 @@ const AzirInput: React.FC<Props> = props => {
         selectionColor={getColorByName(selectionColor, theme.COLORS)}
         {...rest}
       />
-      {renderIcon(theme, icon, iconPosition, iconColor, iconSize, disabled)}
-      {!icon && props.password && renderPassIcon(theme, renderPasswordIcon, iconPosition, iconColor, iconSize, disabled, password, setPassword)}
+      {renderendIcon(theme, endIcon, iconPosition, endIconColor, endIconSize, disabled)}
+      {!endIcon && props.password && renderPassIcon(theme, renderPasswordIcon, iconPosition, endIconColor, endIconSize, disabled, password, setPassword)}
     </View>
   );
   if (labelPosition === "left" || labelPosition === "right") {
@@ -120,9 +127,12 @@ type Props = {
   password: boolean;
   type: "default" | "number-pad" | "decimal-pad" | "numeric" | "email-address" | "phone-pad" | string;
   borderless: boolean;
-  icon?: any;
-  iconSize: number;
-  iconColor: string | "primary" | "theme" | "error" | "warning" | "success" | "info" | "transparent";
+  endIcon?: any;
+  endIconSize: number;
+  endIconColor: string | "primary" | "theme" | "error" | "warning" | "success" | "info" | "transparent";
+  startIcon?: any;
+  startIconSize: number;
+  startIconColor: string | "primary" | "theme" | "error" | "warning" | "success" | "info" | "transparent";
   color: string | "primary" | "theme" | "error" | "warning" | "success" | "info" | "transparent";
   selectionColor: string | "primary" | "theme" | "error" | "warning" | "success" | "info" | "transparent";
   bgColor: string | "primary" | "theme" | "error" | "warning" | "success" | "info" | "transparent";
@@ -141,16 +151,20 @@ type Props = {
   labelStyle: any;
   helpStyle: any;
   renderPasswordIcon: any;
+  inputRef: any;
 };
 //default props 4
 AzirInput.defaultProps = {
   password: false,
   type: "default",
   borderless: false,
-  icon: null,
-  iconColor: "theme",
-  iconSize: null,
-  color: "theme",
+  endIcon: null,
+  endIconColor: "theme",
+  endIconSize: null,
+  startIcon: null,
+  startIconColor: "theme",
+  startIconSize: null,
+  color: "#000",
   selectionColor: "theme",
   bgColor: null,
   rounded: false,
@@ -166,7 +180,8 @@ AzirInput.defaultProps = {
   style: null,
   labelStyle: null,
   helpStyle: null,
-  renderPasswordIcon: null
+  renderPasswordIcon: null,
+  inputRef: null
 };
 //component stylesheet
 const styles = theme =>
@@ -192,7 +207,8 @@ const styles = theme =>
       color: theme.COLORS.INPUT,
       fontSize: theme.SIZES.INPUT_TEXT,
       textDecorationColor: "transparent",
-      textShadowColor: "transparent"
+      textShadowColor: "transparent",
+      paddingHorizontal: theme.SIZES.INPUT_HORIZONTAL
     },
     label: {
       //textAlign: I18nManager.isRTL ? "right" : "left"
