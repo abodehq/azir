@@ -55,12 +55,13 @@ const AzirSearch: React.FC<Props> = props => {
 
   const onChangeText = text => {
     setEmpty(text === "");
-    _onChangeText && _onChangeText();
+    _onChangeText && _onChangeText(text);
   };
 
   return (
     <View style={StyleSheet.flatten([styles.container, searchStyle])}>
       <Input
+        value={value}
         inputRef={inputEl}
         startIcon={
           focus && showCancel ? (
@@ -123,7 +124,8 @@ AzirSearch.defaultProps = {
   showLoading: false,
   startIconStyle: null,
   endIconStyle: null,
-  loadingColor: "theme"
+  loadingColor: "theme",
+  loadingSize: "small"
 };
 //component stylesheet
 const styles = theme =>

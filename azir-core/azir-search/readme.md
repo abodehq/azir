@@ -1,162 +1,238 @@
-# Azir Framwork :  [https://azir.io/docs](https://azir.io/docs)
+# Azir Framwork : [https://azir.io/docs](https://azir.io/docs)
 
-# Avatar
+# Search
 
-> Avatars are found all over ui design from lists to profile screens. They are commonly used to represent a user and can contain photos, icons, or even text.
+> Azir Search is used to search or filter items. Use Azir Search when the number of items directly impacts a user's ability to find one of them.
 
 <p align="center">
- <img src="https://i.imgur.com/8yqD1NW.jpg" />
+ <img src="https://i.imgur.com/aCK2VN4.jpg" />
 </p>
 
 ## Installation
 
-to install the latest version of `azir-avatar` you only need to run:
+to install the latest version of `azir-search` you only need to run:
 
 ```bash
-npm install azir-avatar  --save
+npm install azir-search  --save
 ```
 
 or
 
 ```bash
-yarn add azir-avatar
+yarn add azir-search
 ```
 
 **Examples**
 
-#### Basic :
+#### Basic With Handlers :
 
 ```jsx
-import Avatar from "azir-avatar";
-import { BrandIcons } from "azir-icon";
+import React, { useState } from "react";
+import Search from "azir-search";
 ---
-//Image
-<Avatar
-  source={ { uri: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixid=eyJhcHBfaWQiOjEyMDd9" } } />
-//ICON
-<Avatar icon={BrandIcons.react} />
-//Title
-<Avatar title="RN" />
+const [txt, setTxt] = useState("");
+---
+<Search
+  value={txt}
+  placeholder={"Search"}
+  onChangeText={text => setTxt(text)}
+  onFocus={() => console.log("Focused")}
+  onCancel={() => console.log("UnFocused")}
+  onClear={() => console.log("Cleared")}
+  onBlur={() => console.log("UnFocused")}
+/>
 ```
 
-<img src="https://i.imgur.com/HheEPEA.jpg" alt="Basic" style="width:250px" />
+<img src="https://i.imgur.com/h2VyplG.jpg" alt="Basic" style="width:250px" />
 
 #### Advance with Styles :
 
 ```jsx
-import Avatar from "azir-avatar";
-import  Icon,{ BrandIcons } from "azir-icon";
+import React, { useState } from "react";
+import Search from "azir-search";
+import Icon, {SolidIcons } from "azir-icon";//you need to import solid icons font into your app
 ---
-<Avatar style={ {borderWidth:1,borderColor:"red"} }
-  icon={BrandIcons.react} shadow size={300}
-  color="gray" contentColor="error" rounded={false}
-  contentStyle={ {borderWidth:1, borderRadius:50, padding:5,borderColor:"white" } }
+const [txt, setTxt] = useState("");
+---
+<Search
+  searchStyle={ { padding: 0 } }
+  style={ { borderColor: "red", borderLeftWidth: 0, borderTopWidth: 0, borderRightWidth: 0 } }
+  endIconStyle={ { color: "red" } }
+  color="red"
+  value={txt}
+  onChangeText={text => setTxt(text)}
+  startIcon={<Icon color="red" size={24} icon={SolidIcons.searchLocation}></Icon>}
 />
 ```
 
-<img src="https://i.imgur.com/nE8fdOJ.jpg" alt="Basic" style="width:150px" />
+<img src="https://i.imgur.com/t77dZy3.jpg" alt="Basic" style="width:250px" />
 
-#### Custom content with Press :
+#### Advance with Loadingg :
 
 ```jsx
-import Avatar from "azir-avatar";
-import Button from "azir-button";
-import  Icon,{ SolidIcons } from "azir-icon";
+import React, { useState } from "react";
+import Search from "azir-search";
+import Icon, {SolidIcons } from "azir-icon";//you need to import solid icons font into your app
 ---
-<Button
-  color="transparent"
-  onPress={() => {
-    console.log("hii");
-  }}>
-    <Avatar
-      size={"large"}
-      style={ { backgroundColor: "#eee",borderWidth:1,borderColor:"#ff9900" } }>
-      <Icon icon={SolidIcons.baby} color="#ff9900"></Icon>
-    </Avatar>
-</Button>
+const [txt, setTxt] = useState("");
+---
+<Search
+  searchStyle={ { padding: 0 } }
+  value={txt}
+  onChangeText={text => setTxt(text)}
+  startIconColor="green"
+  placeholder={"Search Donuts"}
+  startIconSize={50}
+  showLoading
+  loadingColor="green"
+  loadingSize="large"
+  startIconStyle={ { color: "green" } }
+  endIconStyle={ { color: "green" } }
+/>
 ```
 
-<img src="https://i.imgur.com/PDSTFEP.jpg" alt="Basic" style="width:200px" />
+<img src="https://i.imgur.com/J3vQxtj.jpg" alt="Basic" style="width:250px" />
 
 ### Props
 
-> you can add any extra props based on the avatar content type ( for example if you have image avatar then you can pass image props to the avatar component )
+> Azir Search using Azir-input for its seach input so you can also pass all azir-input props.
 
-```jsx
-<Avatar resizeMode="cover" />
-```
-
-- [`source`](avatar#source)
-- [`title`](avatar#title)
-- [`icon`](avatar#icon)
-- [`color`](avatar#color)
-- [`size`](avatar#size)
-- [`contentColor`](avatar#contentcolor)
-- [`rounded`](avatar#rounded)
-- [`source`](avatar#source)
-- [`shadow`](avatar#shadow)
-- [`contentStyle`](avatar#contentstyle)
-- [`style`](avatar#style)
+- [`value`](search#value)
+- [`searchIcon`](search#searchicon)
+- [`cancelIcon`](search#cancelicon)
+- [`showCancel`](search#showcancel)
+- [`clearIcon`](search#clearicon)
+- [`showClear`](search#showclear)
+- [`onClear`](search#onclear)
+- [`onFocus`](search#onfocus)
+- [`onBlur`](search#onblur)
+- [`onChangeText`](search#onchangetext)
+- [`onCancel`](search#oncancel)
+- [`searchStyle`](search#searchstyle)
+- [`startIconStyle`](search#starticonstyle)
+- [`endIconStyle`](search#endiconstyle)
+- [`showLoading`](search#showloading)
+- [`loadingColor`](search#loadingcolor)
+- [`startIconStyle`](search#starticonstyle)
+- [`endIconStyle`](search#endiconstyle)
+- [`shadow`](search#shadow)
+- Azir-input props
 
 ---
 
 # Reference
 
-### `source`
+### `value`
 
-Avatar Image Source ( in case you want an image avatar )
-
-| Type                | Required | Default |
-| ------------------- | -------- | ------- |
-| image source object | No       | null    |
-
-### `title`
-
-Avatar title text ( in case you want text avatar )
+Set the value of the input text
 
 | Type   | Required | Default |
 | ------ | -------- | ------- |
-| string | No       | null    |
+| string | No       | empty   |
 
-### `icon`
+### `searchIcon`
 
-Avatar Icon ( in case you want Azir Icon avatar )
+override the search Icon props, you can use azir-icon to change default icon.
 
-| Type                                               | Required | Default |
-| -------------------------------------------------- | -------- | ------- |
-| SolidIcons, RegularIcons, BrandIcons , CustomIcons | No       | null    |
+| Type   | Required | Default          |
+| ------ | -------- | ---------------- |
+| string | No       | AzirIcons.Search |
 
-### `color`
+### `cancelIcon`
 
-Background Color of the avatar
+override the Cancel Icon props, you can use azir-icon to change default icon.
+
+| Type   | Required | Default                                          |
+| ------ | -------- | ------------------------------------------------ |
+| string | No       | ltr:AzirIcons.ArrowLeft;rtl:AzirIcons.ArrowRight |
+
+### `showCancel`
+
+Show or hide Cancel icon..
+
+| Type    | Required | Default |
+| ------- | -------- | ------- |
+| boolean | No       | true    |
+
+### `clearIcon`
+
+override the Clear Icon props, you can use azir-icon to change default icon.
+
+| Type   | Required | Default               |
+| ------ | -------- | --------------------- |
+| string | No       | AzirIcons.SearchClear |
+
+### `showClear`
+
+Show or hide Clear icon..
+
+| Type    | Required | Default |
+| ------- | -------- | ------- |
+| boolean | No       | true    |
+
+### `onClear`
+
+method to fire when input is cleared
+
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
+
+### `onFocus`
+
+method to fire when input is focused
+
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
+
+### `onBlur`
+
+method to fire when input is Blured
+
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
+
+### `onChangeText`
+
+method to fire when the text input is Changed
+
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
+
+### `onCancel`
+
+method to fire when the text input is Canceled
+
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
+
+### `showLoading`
+
+Show Activity indicator when the value is true.
+
+| Type    | Required | Default |
+| ------- | -------- | ------- |
+| boolean | No       | false   |
+
+### `loadingColor`
+
+Loading Color of input loading indicator
 
 | Type                                       | Required | Default |
 | ------------------------------------------ | -------- | ------- |
 | [azir-color](../../guides/color-reference) | No       | theme   |
 
-### `size`
+### `loadingSize`
 
-set the avatar component Size.
+set the loading Size.
 
-| Type                                               | Required | Default |
-| -------------------------------------------------- | -------- | ------- |
-| ("small" , "medium" , "large" , "xlarge" , number) | No       | medium  |
-
-### `contentColor`
-
-set the avatar Color (for icon & Text)
-
-| Type                                       | Required | Default |
-| ------------------------------------------ | -------- | ------- |
-| [azir-color](../../guides/color-reference) | No       | white   |
-
-### `rounded`
-
-Makes the avatar circular or square
-
-| Type    | Required | Default |
-| ------- | -------- | ------- |
-| boolean | No       | true    |
+| Type                         | Required | Default |
+| ---------------------------- | -------- | ------- |
+| ("small" , "large" , number) | No       | small   |
 
 ### `shadow`
 
@@ -166,17 +242,25 @@ If true, show shadow effect for this component.
 | ---- | -------- | ------- |
 | bool | No       | false   |
 
-### `contentStyle`
+### `searchStyle`
 
-override Avatar content Style based on the avatar content ( image, icon, text)
+override input Container Style , if you want to change the pdding which is default = 8
 
 | Type  | Required |
 | ----- | -------- |
 | style | No       |
 
-### `style`
+### `startIconStyle`
 
-override Avatar Container Style which include ( View Style )
+override the start icon style ( ARROW RIGHT , ARROW LEFT)
+
+| Type  | Required |
+| ----- | -------- |
+| style | No       |
+
+### `endIconStyle`
+
+override the start icon style ( clear icon)
 
 | Type  | Required |
 | ----- | -------- |
