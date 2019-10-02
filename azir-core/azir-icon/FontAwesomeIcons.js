@@ -36,7 +36,14 @@ const AzirIcons = {
   ArrowLeft: "\uE80D|azir",
   ArrowRight: "\uE811|azir",
   Search: "\uE805|azir",
-  SearchClear: "\uE80E|azir"
+  SearchClear: "\uE80E|azir",
+  Star: "\uE814|azir",
+  Heart: "\uE815|azir",
+  HeartOutline: "\uE80E|azir",
+  Bell: "\uF0F3|azir",
+  BellOutliine: "\uE819|azir",
+  ThumbUp: "\uF164|azir",
+  ThumbUpOutliine: "\uE818|azir",
 };
 const SolidIcons = {
   //_fontFamily: Platform.OS === "ios" ? "FontAwesome5FreeSolid" : "fa-solid-900",

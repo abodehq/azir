@@ -1,25 +1,25 @@
 # Azir Framwork :  [https://azir.io/docs](https://azir.io/docs)
 
-# Avatar
+# Rating
 
-> Avatars are found all over ui design from lists to profile screens. They are commonly used to represent a user and can contain photos, icons, or even text.
+An advance Rating component that should render nicely on any platform. Supports a great level of customization.
 
 <p align="center">
- <img src="https://i.imgur.com/8yqD1NW.jpg" />
+ <img src="https://i.imgur.com/2icdCbc.jpg" />
 </p>
 
 ## Installation
 
-to install the latest version of `azir-avatar` you only need to run:
+to install the latest version of `azir-rating` you only need to run:
 
 ```bash
-npm install azir-avatar  --save
+npm install azir-rating  --save
 ```
 
 or
 
 ```bash
-yarn add azir-avatar
+yarn add azir-rating
 ```
 
 **Examples**
@@ -27,156 +27,209 @@ yarn add azir-avatar
 #### Basic :
 
 ```jsx
-import Avatar from "azir-avatar";
-import { BrandIcons } from "azir-icon";
+import Rating from "azir-rating" ;
 ---
-//Image
-<Avatar
-  source={ { uri: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixid=eyJhcHBfaWQiOjEyMDd9" } } />
-//ICON
-<Avatar icon={BrandIcons.react} />
-//Title
-<Avatar title="RN" />
+<Rating
+  size={60} rating={1}
+  scaleSize={80} count={3}
+  reviews={["Okay","Good", "Great"]}
+  onChange={(rating,previousRating)=>{console.log(rating+" : " +previousRating)}}
+/>
 ```
 
-<img src="https://i.imgur.com/HheEPEA.jpg" alt="Basic" style="width:250px" />
+<img src="https://i.imgur.com/Y6PJEoa.jpg" alt="Basic" style="width:250px" />
 
 #### Advance with Styles :
 
 ```jsx
-import Avatar from "azir-avatar";
-import  Icon,{ BrandIcons } from "azir-icon";
+import Rating from "azir-rating" ;
+import  Icon,{ AzirIcons } from "azir-icon";
 ---
-<Avatar style={ {borderWidth:1,borderColor:"red"} }
-  icon={BrandIcons.react} shadow size={300}
-  color="gray" contentColor="error" rounded={false}
-  contentStyle={ {borderWidth:1, borderRadius:50, padding:5,borderColor:"white" } }
+ <Rating
+  reviewColor="red"
+  activeColor="red"
+  count={7}
+  icon={AzirIcons.ThumbUp}
+  starContainerStyle={ {borderWidth:1} }
+  inActiveColor="#990000"
+  reviewStyle={ {fontSize:18} }
+  style={ {backgroundColor:"#eee"} }
+  containerStyle={ {backgroundColor:"#aaeeaa"} }
+  showAnimation={false}
+  showScaleEffect={false}
 />
 ```
 
-<img src="https://i.imgur.com/nE8fdOJ.jpg" alt="Basic" style="width:150px" />
-
-#### Custom content with Press :
-
-```jsx
-import Avatar from "azir-avatar";
-import Button from "azir-button";
-import  Icon,{ SolidIcons } from "azir-icon";
----
-<Button
-  color="transparent"
-  onPress={() => {
-    console.log("hii");
-  }}>
-    <Avatar
-      size={"large"}
-      style={ { backgroundColor: "#eee",borderWidth:1,borderColor:"#ff9900" } }>
-      <Icon icon={SolidIcons.baby} color="#ff9900"></Icon>
-    </Avatar>
-</Button>
-```
-
-<img src="https://i.imgur.com/PDSTFEP.jpg" alt="Basic" style="width:200px" />
+<img src="https://i.imgur.com/3wYP7gA.jpg" alt="Basic" style="width:250px" />
 
 ### Props
 
-> you can add any extra props based on the avatar content type ( for example if you have image avatar then you can pass image props to the avatar component )
+> Please make sure to download the latest version of Azir icons.
 
-```jsx
-<Avatar resizeMode="cover" />
-```
-
-- [`source`](avatar#source)
-- [`title`](avatar#title)
-- [`icon`](avatar#icon)
-- [`color`](avatar#color)
-- [`size`](avatar#size)
-- [`contentColor`](avatar#contentcolor)
-- [`rounded`](avatar#rounded)
-- [`source`](avatar#source)
-- [`shadow`](avatar#shadow)
-- [`contentStyle`](avatar#contentstyle)
-- [`style`](avatar#style)
+- [`icon`](rating#icon)
+- [`onChange`](rating#onchange)
+- [`rating`](rating#rating)
+- [`count`](rating#count)
+- [`size`](rating#size)
+- [`scaleSize`](rating#scalesize)
+- [`activeColor`](rating#activecolor)
+- [`inActiveColor`](rating#inactivecolor)
+- [`showAnimation`](rating#showanimation)
+- [`showScaleEffect`](rating#showscaleeffect)
+- [`reviews`](rating#reviews)
+- [`reviewSize`](rating#reviewsize)
+- [`showRatingReview`](rating#showratingreview)
+- [`disabled`](rating#disabled)
+- [`style`](rating#style)
+- [`containerStyle`](rating#containerstyle)
+- [`starContainerStyle`](rating#starcontainerstyle)
+- [`reviewStyle`](rating#reviewstyle)
 
 ---
 
 # Reference
 
-### `source`
+### `icon`
 
-Avatar Image Source ( in case you want an image avatar )
+Rating Icon.
 
-| Type                | Required | Default |
-| ------------------- | -------- | ------- |
-| image source object | No       | null    |
+| Type                                                         | Required | Default        |
+| ------------------------------------------------------------ | -------- | -------------- |
+| AzirIcons,SolidIcons, RegularIcons, BrandIcons , CustomIcons | No       | AzirIcons.Star |
 
-### `title`
+### `onChange`
 
-Avatar title text ( in case you want text avatar )
+Handler to be called when the user change the rating .
+
+> we pass two parameters (rating :current selected index,previousRating :previous index )
+
+| Type     | Required |
+| -------- | -------- |
+| function | NO       |
+
+### `rating`
+
+Initial value for the rating. star rating started from zero.
 
 | Type   | Required | Default |
 | ------ | -------- | ------- |
-| string | No       | null    |
+| Number | No       | 2       |
 
-### `icon`
+### `count`
 
-Avatar Icon ( in case you want Azir Icon avatar )
+Total number of ratings to display
 
-| Type                                               | Required | Default |
-| -------------------------------------------------- | -------- | ------- |
-| SolidIcons, RegularIcons, BrandIcons , CustomIcons | No       | null    |
+| Type   | Required | Default |
+| ------ | -------- | ------- |
+| Number | No       | 5       |
 
-### `color`
+### `size`
 
-Background Color of the avatar
+The Size of the Rating Icon
+
+| Type                                 | Required | Default |
+| ------------------------------------ | -------- | ------- |
+| [azir-size](../../guides/azir-sizes) | No       | 25      |
+
+### `scaleSize`
+
+The Size of the Rating Icon when its active
+
+| Type                                 | Required | Default |
+| ------------------------------------ | -------- | ------- |
+| [azir-size](../../guides/azir-sizes) | No       | 40      |
+
+### `activeColor`
+
+Active Rating icon Color.
 
 | Type                                       | Required | Default |
 | ------------------------------------------ | -------- | ------- |
 | [azir-color](../../guides/color-reference) | No       | theme   |
 
-### `size`
+### `inActiveColor`
 
-set the avatar component Size.
-
-| Type                                               | Required | Default |
-| -------------------------------------------------- | -------- | ------- |
-| ("small" , "medium" , "large" , "xlarge" , number) | No       | medium  |
-
-### `contentColor`
-
-set the avatar Color (for icon & Text)
+In Active Rating icon Color.
 
 | Type                                       | Required | Default |
 | ------------------------------------------ | -------- | ------- |
-| [azir-color](../../guides/color-reference) | No       | white   |
+| [azir-color](../../guides/color-reference) | No       | #BDC3C7 |
 
-### `rounded`
+### `showAnimation`
 
-Makes the avatar circular or square
+Show Rating Icons Change Spring animation
 
 | Type    | Required | Default |
 | ------- | -------- | ------- |
 | boolean | No       | true    |
 
-### `shadow`
+### `showScaleEffect`
 
-If true, show shadow effect for this component.
+Show Rating Icons Change Scaling Effect
+
+| Type    | Required | Default |
+| ------- | -------- | ------- |
+| boolean | No       | true    |
+
+### `reviews`
+
+Labels to show when each value is tapped e.g. If the first star is tapped, then value in index 0 will be used as the label
+
+| Type     | Required | Default                                      |
+| -------- | -------- | -------------------------------------------- |
+| string[] | No       | ["Terrible", "Bad", "Okay", "Good", "Great"] |
+
+### `reviewSize`
+
+The font Size of the Rating Reviews
+
+| Type   | Required | Default |
+| ------ | -------- | ------- |
+| Number | No       | 25      |
+
+### `showRatingReview`
+
+If false, we hide rating reviews.
+
+| Type | Required | Default |
+| ---- | -------- | ------- |
+| bool | No       | true    |
+
+### `disabled`
+
+If true, disable all interactions for this component.
 
 | Type | Required | Default |
 | ---- | -------- | ------- |
 | bool | No       | false   |
 
-### `contentStyle`
+### `style`
 
-override Avatar content Style based on the avatar content ( image, icon, text)
+override Rating main Container Style
 
 | Type  | Required |
 | ----- | -------- |
 | style | No       |
 
-### `style`
+### `containerStyle`
 
-override Avatar Container Style which include ( View Style )
+override rating icons container style
+
+| Type  | Required |
+| ----- | -------- |
+| style | No       |
+
+### `starContainerStyle`
+
+override Star Container Style
+
+| Type  | Required |
+| ----- | -------- |
+| style | No       |
+
+### `reviewStyle`
+
+override review Text style
 
 | Type  | Required |
 | ----- | -------- |

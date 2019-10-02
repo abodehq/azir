@@ -1,6 +1,6 @@
 {
   "name": "azir-icon",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A great component that give you the ability you to create your own custom icons ",
   "main": "index.tsx",
   "dependencies": {
