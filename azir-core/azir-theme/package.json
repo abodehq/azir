@@ -1,6 +1,6 @@
 {
   "name": "azir-theme",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A powerfull tool to customize React native app theme, components,style,....",
   "main": "index.tsx",
   "dependencies": {},
