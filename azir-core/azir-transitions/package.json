@@ -1,9 +1,12 @@
 {
-  "name": "azir-theme",
-  "version": "1.0.7",
-  "description": "A powerfull tool to customize React native app theme, components,style,....",
+  "name": "azir-transitions",
+  "version": "1.0.0",
+  "description": "An advance Transition component that should render nicely on any platform. Supports a great level of customization.",
   "main": "index.tsx",
-  "dependencies": {},
+  "dependencies": {
+    "azir-theme": "^1.x.x",
+    "azir-icon": "^1.x.x"
+  },
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
@@ -26,13 +29,13 @@
     "android",
     "ui",
     "expo",
-    "blue eye",
-    "Theme",
-    "framework",
-    "advance theme",
-    "native theme",
-    "react native theme",
-    "expo theme"
+    "transitions",
+    "advance transitions",
+    "native transitions",
+    "blue eye transitions",
+    "react native transitions",
+    "expo transitions",
+    "transitions"
   ],
   "author": "Abed Allateef Qaisi abed_q@hotmail.com",
   "license": "MIT",

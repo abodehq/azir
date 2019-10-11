@@ -5,12 +5,14 @@ import LC_COLORS from "./colors";
 import LC_SIZES from "./sizes";
 import LC_Settings from "./settings";
 import LC_Strings from "./strings";
+import LC_BREAKPOINTS from "./breakPoints";
 // default theme with COLORS & SIZES
 const AzirTheme = {
   SETTINGS: LC_Settings,
   COLORS: LC_COLORS,
   SIZES: LC_SIZES,
-  STRINGS: LC_Strings
+  STRINGS: LC_Strings,
+  BREAKPOINTS: LC_BREAKPOINTS
 };
 
 export default AzirTheme;
@@ -45,10 +47,9 @@ export function withAzir(Component, styles) {
 
 export const AzirProvider: React.FC<Props> = props => {
   const { theme, children } = props;
-
-  const { SETTINGS: CUSTOM_SETTINGS, STRINGS: CUSTOM_STRINGS, COLORS: CUSTOM_COLORS, SIZES: CUSTOM_SIZES, customTheme } = theme;
-
+  const { BREAKPOINTS: CUSTOM_BREAKPOINTS, SETTINGS: CUSTOM_SETTINGS, STRINGS: CUSTOM_STRINGS, COLORS: CUSTOM_COLORS, SIZES: CUSTOM_SIZES, customTheme } = theme;
   const providerTheme = {
+    BREAKPOINTS: { ...AzirTheme.BREAKPOINTS, ...CUSTOM_BREAKPOINTS },
     SETTINGS: { ...AzirTheme.SETTINGS, ...CUSTOM_SETTINGS },
     STRINGS: { ...AzirTheme.STRINGS, ...CUSTOM_STRINGS },
     COLORS: { ...AzirTheme.COLORS, ...CUSTOM_COLORS },
@@ -94,3 +95,5 @@ const Sizes = {
 export const getSize = size => {
   return Sizes[size] ? Sizes[size] : typeof size === "number" ? size : Sizes["small"];
 };
+
+export const AzirGridContext = React.createContext({ width: 0, height: 0, spacing: 0 });
