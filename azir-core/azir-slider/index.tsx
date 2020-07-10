@@ -74,7 +74,7 @@ const AzirSlider: React.FC<Props> = props => {
         })
       );
     }
-  }, [containerSize, thumbSize]);
+  }, [containerSize, thumbSize, disabled]);
   const _getValue = (gestureState: any) => {
     const length = containerSize.width - thumbSize.width;
     const thumbLeft = this._previousLeft + gestureState.dx;
